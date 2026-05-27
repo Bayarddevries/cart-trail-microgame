@@ -910,18 +910,23 @@ function createGame(seed) {
 // UI
 // ═══════════════════════════════════════════════════════════
 
-const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
+// ── Map init (deferred until after intro) ───────────────────────
+let map = null, trailLine = null, markers = null;
 
-const trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8b6914', weight: 3, opacity: 0.7 }).addTo(map);
-const markers = NODES.map((n, i) => {
-  const m = L.circleMarker([n.lat, n.lon], {
-    radius: i === 0 ? 9 : 5, fillColor: i === 0 ? '#c0392b' : '#8b6914',
-    color: '#3d2b1f', weight: 2, fillOpacity: 0.9
-  }).addTo(map);
-  m.bindTooltip(n.name, { permanent: false, direction: 'top' });
-  return m;
-});
+function initMap() {
+  if (map) return;
+  map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
+  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8b6914', weight: 3, opacity: 0.7 }).addTo(map);
+  markers = NODES.map((n, i) => {
+    const m = L.circleMarker([n.lat, n.lon], {
+      radius: i === 0 ? 9 : 5, fillColor: i === 0 ? '#c0392b' : '#8b6914',
+      color: '#3d2b1f', weight: 2, fillOpacity: 0.9
+    }).addTo(map);
+    m.bindTooltip(n.name, { permanent: false, direction: 'top' });
+    return m;
+  });
+}
 
 function updateStatus() {
   const s = game.stateSummary();
@@ -1116,6 +1121,7 @@ document.getElementById('settlement-close').onclick = () => { document.getElemen
 
 document.getElementById('intro-start').onclick = () => {
   document.getElementById('intro-overlay').classList.remove('active');
+  initMap();
   game = createGame();
   showNarrative();
   updateStatus();
