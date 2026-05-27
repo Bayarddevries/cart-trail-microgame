@@ -1125,6 +1125,7 @@ document.getElementById('intro-start').onclick = () => {
   game = createGame();
   showNarrative();
   updateStatus();
+  setTimeout(() => map.invalidateSize(), 50);
 };
 
 document.getElementById('end-restart').onclick = () => {
@@ -1133,6 +1134,7 @@ document.getElementById('end-restart').onclick = () => {
   showNarrative();
   updateStatus();
   updateMap();
+  setTimeout(() => map.invalidateSize(), 50);
 };
 
 // ── Init ────────────────────────────────────────────────────────
