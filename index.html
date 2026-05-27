@@ -23,37 +23,61 @@
       height: 100vh;
     }
 
-    /* Status bar */
+    /* ── Status Bar ─────────────────────────────────── */
     #status-bar {
       display: flex;
       justify-content: space-between;
-      padding: 8px 20px;
+      align-items: center;
+      padding: 6px 16px;
       background: #3d2b1f;
       color: #f4e8d1;
-      font-size: 13px;
+      font-size: 12px;
       flex-shrink: 0;
       border-bottom: 2px solid #8b6914;
+      white-space: nowrap;
+      overflow: hidden;
     }
+    #status-bar .stat {
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    #status-bar .stat-label {
+      color: #c4a96a;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    #status-bar .stat-value { font-weight: bold; }
+    #status-bar .segment-progress {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: #c4a96a;
+      padding: 0 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .food-low { color: #e74c3c !important; }
+    .wear-high { color: #e74c3c !important; }
 
-    #status-bar span { padding: 0 8px; }
-
-    /* Map panel */
+    /* ── Map Panel ──────────────────────────────────── */
     #map-panel {
       flex: 1;
       position: relative;
-      min-height: 0; /* flex child overflow fix */
+      min-height: 0;
     }
-
     #map {
       width: 100%;
       height: 100%;
       background: #e8d5b5;
     }
 
-    /* Bottom panel */
+    /* ── Bottom Panel ───────────────────────────────── */
     #bottom-panel {
-      height: 30vh;
-      min-height: 180px;
+      height: 28vh;
+      min-height: 160px;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
@@ -63,96 +87,150 @@
 
     #narrative {
       flex: 1;
-      padding: 10px 20px;
+      padding: 10px 18px;
       overflow-y: auto;
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.55;
     }
-
     .day-header {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: #8b6914;
       margin-bottom: 4px;
       font-weight: bold;
     }
-
-    .scene-text { margin-bottom: 6px; }
+    .scene-text { margin-bottom: 5px; }
     .scene-text:last-child { margin-bottom: 0; }
 
-    .choices { margin-top: 10px; }
-
-    .choice-btn {
-      display: block;
-      width: 100%;
-      padding: 8px 14px;
-      margin: 4px 0;
-      background: #fff8e7;
-      border: 2px solid #8b6914;
-      border-radius: 4px;
-      font-family: Georgia, serif;
-      font-size: 13px;
-      color: #3d2b1f;
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.15s;
-    }
-
-    .choice-btn:hover { background: #ffe4a0; }
-
-    /* Controls */
+    /* ── Controls ───────────────────────────────────── */
     #controls {
       display: flex;
-      padding: 8px 20px;
-      gap: 6px;
+      padding: 6px 16px;
+      gap: 5px;
       border-top: 1px solid #c4a96a;
       background: #ede0c8;
       flex-shrink: 0;
     }
-
     .ctrl-btn {
-      padding: 6px 18px;
+      padding: 5px 14px;
       background: #8b6914;
       color: #f4e8d1;
       border: none;
       border-radius: 4px;
       font-family: Georgia, serif;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
     }
-
     .ctrl-btn:hover { background: #6d5310; }
     .ctrl-btn:disabled { background: #b0a080; cursor: not-allowed; }
+    .ctrl-btn .key-hint {
+      font-size: 9px;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
 
-    /* Overlays */
+    /* ── Overlays (shared) ──────────────────────────── */
     .overlay {
       display: none;
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(61, 43, 31, 0.88);
+      background: rgba(61, 43, 31, 0.85);
       z-index: 100;
       justify-content: center;
       align-items: center;
     }
+    .overlay.active { display: flex; }
 
     .overlay-card {
       background: #f4e8d1;
       border: 3px solid #8b6914;
       border-radius: 8px;
-      max-width: 560px;
+      max-width: 580px;
       width: 92%;
-      max-height: 80%;
+      max-height: 85%;
       overflow-y: auto;
-      padding: 20px;
+      padding: 22px;
+      position: relative;
     }
+    .overlay-card h2 {
+      color: #8b6914;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .overlay-card h3 {
+      color: #8b6914;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: 2px solid #8b6914;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      color: #8b6914;
+      font-size: 12px;
+    }
+    .close-btn:hover { background: #fff8e7; }
 
-    .event-art {
+    /* ── Intro Screen ───────────────────────────────── */
+    #intro-overlay { z-index: 200; }
+    .intro-card {
+      text-align: center;
+      max-width: 520px;
+    }
+    .intro-card h1 {
+      font-size: 28px;
+      color: #8b6914;
+      margin-bottom: 4px;
+    }
+    .intro-card .subtitle {
+      font-size: 13px;
+      color: #8b6914;
+      font-style: italic;
+      margin-bottom: 18px;
+    }
+    .intro-card .flavor-text {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .intro-card .tutorial-text {
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      text-align: left;
+      background: #fff8e7;
+      border: 1px solid #c4a96a;
+      border-radius: 4px;
+      padding: 12px;
+    }
+    .intro-card .tutorial-text strong { color: #8b6914; }
+    .intro-card .start-btn {
+      padding: 10px 32px;
+      background: #8b6914;
+      color: #f4e8d1;
+      border: none;
+      border-radius: 6px;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .intro-card .start-btn:hover { background: #6d5310; }
+
+    /* ── Settlement Overlay ─────────────────────────── */
+    .settlement-art {
       width: 100%;
-      height: 100px;
+      height: 80px;
       background: linear-gradient(135deg, #d4c4a0, #c4b490);
       border-radius: 4px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -162,46 +240,62 @@
       letter-spacing: 1px;
       border: 1px dashed #8b6914;
     }
+    .settlement-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+      font-style: italic;
+      color: #6d5310;
+    }
+    .settlement-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .settlement-actions .ctrl-btn {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
 
+    /* ── Event Overlay ──────────────────────────────── */
+    .event-art {
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(135deg, #d4c4a0, #c4b490);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #8b6914;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px dashed #8b6914;
+    }
     .event-text {
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 13px;
+      line-height: 1.65;
       margin-bottom: 14px;
     }
-
-    .close-btn {
-      float: right;
-      background: none;
+    .event-choices { display: flex; flex-direction: column; gap: 5px; }
+    .choice-btn {
+      display: block;
+      width: 100%;
+      padding: 8px 14px;
+      background: #fff8e7;
       border: 2px solid #8b6914;
       border-radius: 4px;
-      padding: 4px 14px;
       font-family: Georgia, serif;
-      cursor: pointer;
-      color: #8b6914;
       font-size: 13px;
+      color: #3d2b1f;
+      cursor: pointer;
+      text-align: left;
     }
+    .choice-btn:hover { background: #ffe4a0; }
 
-    .close-btn:hover { background: #fff8e7; }
-
-    /* Dice */
-    .dice-result {
-      display: inline-block;
-      padding: 2px 10px;
-      background: #8b6914;
-      color: #f4e8d1;
-      border-radius: 4px;
-      font-weight: bold;
-      margin: 0 3px;
-      animation: dice-pop 0.4s ease-out;
-    }
-
-    @keyframes dice-pop {
-      0% { transform: scale(0.3); opacity: 0; }
-      60% { transform: scale(1.15); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Inventory */
+    /* ── Cart Overlay ───────────────────────────────── */
     .inv-item {
       display: flex;
       justify-content: space-between;
@@ -209,32 +303,92 @@
       border-bottom: 1px solid #d4c4a0;
       font-size: 13px;
     }
-
-    .inv-item .desc {
-      font-size: 11px;
-      color: #8b6914;
-      font-style: italic;
-    }
-
+    .inv-item .desc { font-size: 11px; color: #8b6914; font-style: italic; }
     .weight-bar {
-      height: 16px;
+      height: 14px;
       background: #d4c4a0;
       border-radius: 3px;
-      margin: 10px 0 4px;
+      margin: 8px 0 4px;
       overflow: hidden;
     }
-
     .weight-fill {
       height: 100%;
       background: #8b6914;
       transition: width 0.3s;
       border-radius: 3px;
     }
-
     .weight-fill.over { background: #c0392b; }
-    .weight-text { font-size: 12px; color: #8b6914; margin-bottom: 10px; }
+    .weight-text { font-size: 11px; color: #8b6914; margin-bottom: 8px; }
 
-    /* Leaflet overrides for parchment feel */
+    /* ── Crew Overlay ───────────────────────────────── */
+    .crew-status {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .crew-modifier {
+      font-size: 12px;
+      color: #8b6914;
+      font-style: italic;
+    }
+
+    /* ── End Screen ─────────────────────────────────── */
+    #end-overlay { z-index: 200; }
+    .end-card { text-align: center; max-width: 500px; }
+    .end-card h1 { font-size: 24px; color: #8b6914; margin-bottom: 10px; }
+    .end-card .end-narrative {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .end-stats {
+      background: #fff8e7;
+      border: 1px solid #c4a96a;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .end-stats .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      font-size: 13px;
+    }
+    .end-stats .stat-row .label { color: #8b6914; }
+    .end-stats .score-row {
+      border-top: 2px solid #8b6914;
+      margin-top: 6px;
+      padding-top: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #8b6914;
+    }
+    .end-card .restart-btn {
+      padding: 10px 32px;
+      background: #8b6914;
+      color: #f4e8d1;
+      border: none;
+      border-radius: 6px;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .end-card .restart-btn:hover { background: #6d5310; }
+
+    /* ── Dice ───────────────────────────────────────── */
+    .dice-result {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #8b6914;
+      color: #f4e8d1;
+      border-radius: 4px;
+      font-weight: bold;
+      margin: 0 3px;
+    }
+
+    /* ── Leaflet overrides ──────────────────────────── */
     .leaflet-tile-pane { filter: sepia(0.3) saturate(0.8); }
     .leaflet-control-attribution { display: none; }
     .leaflet-tooltip {
@@ -252,721 +406,732 @@
 <body>
 <div id="game-container">
 
+  <!-- ── Status Bar ──────────────────────────────────── -->
   <div id="status-bar">
-    <span id="s-day">Day 1</span>
-    <span id="s-month">June 15</span>
-    <span id="s-location">Fort Garry</span>
-    <span id="s-season">Summer</span>
-    <span id="s-crew">Crew: Rested</span>
-    <span id="s-food">Food: 10</span>
-    <span id="s-wear">Wear: 0</span>
+    <span class="stat"><span class="stat-label">Day</span><span class="stat-value" id="s-day">1</span></span>
+    <span class="stat"><span class="stat-label" id="s-month">June 15</span></span>
+    <span class="stat"><span class="stat-label" id="s-season">Summer</span></span>
+    <span class="segment-progress" id="s-segment">Fort Garry — begin your journey</span>
+    <span class="stat"><span class="stat-label">Food</span><span class="stat-value" id="s-food">20</span></span>
+    <span class="stat"><span class="stat-label">Wear</span><span class="stat-value" id="s-wear">0</span></span>
+    <span class="stat"><span class="stat-label">Crew</span><span class="stat-value" id="s-crew">Rested</span></span>
   </div>
 
+  <!-- ── Map Panel ───────────────────────────────────── -->
   <div id="map-panel">
     <div id="map"></div>
 
+    <!-- Event Overlay -->
     <div class="overlay" id="event-overlay">
       <div class="overlay-card">
         <div class="event-art" id="event-art">TODO: ART</div>
         <div class="event-text" id="event-text"></div>
-        <div class="choices" id="event-choices"></div>
+        <div class="event-choices" id="event-choices"></div>
       </div>
     </div>
 
-    <div class="overlay" id="inv-overlay">
+    <!-- Settlement Overlay -->
+    <div class="overlay" id="settlement-overlay">
       <div class="overlay-card">
-        <button class="close-btn" id="inv-close">Close</button>
-        <h2 style="color:#8b6914;margin-bottom:8px">Cart Contents</h2>
+        <button class="close-btn" id="settlement-close">✕</button>
+        <div class="settlement-art" id="settlement-art">TODO: ART</div>
+        <h2 id="settlement-name"></h2>
+        <div class="settlement-desc" id="settlement-desc"></div>
+        <div class="settlement-actions" id="settlement-actions"></div>
+      </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="overlay" id="cart-overlay">
+      <div class="overlay-card">
+        <button class="close-btn" id="cart-close-btn">✕</button>
+        <h2>Cart Contents</h2>
         <div class="weight-bar"><div class="weight-fill" id="w-fill" style="width:0%"></div></div>
         <div class="weight-text" id="w-text">0 / 450 kg</div>
         <div id="inv-list"></div>
       </div>
     </div>
 
+    <!-- Crew Overlay -->
     <div class="overlay" id="crew-overlay">
       <div class="overlay-card">
-        <button class="close-btn" id="crew-close">Close</button>
-        <h2 style="color:#8b6914;margin-bottom:8px">Crew Status</h2>
-        <div id="crew-text" class="event-text"></div>
+        <button class="close-btn" id="crew-close-btn">✕</button>
+        <h2>Crew Status</h2>
+        <div class="crew-status" id="crew-status"></div>
+        <div class="crew-modifier" id="crew-modifier"></div>
       </div>
     </div>
   </div>
 
+  <!-- ── Bottom Panel ────────────────────────────────── -->
   <div id="bottom-panel">
     <div id="narrative"></div>
     <div id="controls">
-      <button class="ctrl-btn" id="btn-proceed">Proceed</button>
+      <button class="ctrl-btn" id="btn-travel">Travel 1 Day</button>
+      <button class="ctrl-btn" id="btn-camp">Make Camp</button>
       <button class="ctrl-btn" id="btn-cart">Cart</button>
       <button class="ctrl-btn" id="btn-crew">Crew</button>
-      <button class="ctrl-btn" id="btn-camp">Make Camp</button>
-      <button class="ctrl-btn" id="btn-fast" style="margin-left:auto;background:#6d5310">Fast Forward</button>
     </div>
   </div>
 </div>
 
+<!-- ── Intro Overlay (full screen, on top of everything) ─ -->
+<div class="overlay active" id="intro-overlay">
+  <div class="overlay-card intro-card">
+    <h1>Cart Trail</h1>
+    <div class="subtitle">A Métis Journey — Fort Garry to Fort Edmonton, 1878</div>
+    <div class="flavor-text">
+      It is June 15th, 1878. You stand at Fort Garry with a loaded Red River cart, a strong ox, and a long road ahead.
+      <br><br>
+      Five hundred and sixty-seven miles of prairie, river crossings, and rough trail stretch between you and Fort Edmonton. You have until November — before the snow flies and the Carlton Trail disappears under winter.
+      <br><br>
+      Your cart is loaded with pemmican, tools, and trade goods. The bison hides and beaver pelts in your cart are worth good money at Edmonton — if you can get them there in one piece.
+      <br><br>
+      The trail is unforgiving. Rivers run high. The cart wears down. Your crew tires. Every day on the trail costs food, and food doesn't grow on the prairie.
+    </div>
+    <div class="tutorial-text">
+      <strong>How to play:</strong> Each turn is one day. Click <strong>Travel 1 Day</strong> to advance along the trail. You'll consume 1 food per day. Events will test your crew's skill — choose wisely.
+      <br><br>
+      When you reach a settlement, you can <strong>Trade</strong> goods for supplies, <strong>Repair</strong> your cart, or <strong>Rest</strong> to recover. Use <strong>Make Camp</strong> on the trail to rest and do field repairs.
+      <br><br>
+      <strong>Win:</strong> Reach Fort Edmonton with at least 1 trade good and your cart still rolling. <br>
+      <strong>Lose:</strong> Run out of food, let your cart break down completely, or let winter catch you on the trail.
+    </div>
+    <button class="start-btn" id="intro-start">Begin Journey</button>
+  </div>
+</div>
+
+<!-- ── End Screen Overlay ─────────────────────────────── -->
+<div class="overlay" id="end-overlay">
+  <div class="overlay-card end-card">
+    <h1 id="end-title">Journey Complete</h1>
+    <div class="end-narrative" id="end-narrative"></div>
+    <div class="end-stats" id="end-stats"></div>
+    <button class="restart-btn" id="end-restart">Play Again</button>
+  </div>
+</div>
+
 <script>
-// ============================================================
-// GAME STATE
-// ============================================================
-const S = {
-  day: 1,
-  month: 6,
-  season: 'summer',
-  crew: 'rested',
-  food: 10,
-  wear: 0,
-  node: 0,
-  over: false,
-  won: false,
-  pendingEvent: null
-};
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE (embedded — same logic as src/engine.js)
+// ═══════════════════════════════════════════════════════════
 
-// ============================================================
-// DATA
-// ============================================================
-const MONTHS = ['','January','February','March','April','May','June',
-  'July','August','September','October','November','December'];
+function makeRNG(seed) {
+  if (!seed) return null;
+  let s = seed | 0;
+  return function prng() {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
-const SEASON_OF = {6:'summer',7:'summer',8:'summer',9:'autumn',10:'autumn',11:'early winter'};
+const MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+const SEASON_OF = { 6: 'summer', 7: 'summer', 8: 'summer', 9: 'autumn', 10: 'autumn', 11: 'early winter' };
+const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const NODES = [
-  {name:'Fort Garry',type:'hbc',lat:49.8975,lon:-97.1388,terrain:'river_valley',desc:'The Red River Settlement. HBC headquarters. Your journey begins.'},
-  {name:'St. Boniface',type:'mission',lat:49.8881,lon:-97.1258,terrain:'river_valley',desc:'Cathedral and Grey Nuns. Free healing.'},
-  {name:'St. Norbert',type:'metis',lat:49.7611,lon:-97.1517,terrain:'river_valley',desc:'Métis parish. Family welcomes you with bannock.'},
-  {name:'St. François Xavier',type:'metis',lat:49.9333,lon:-97.9833,terrain:'plains',desc:'Métis community. Well-known ford across the Assiniboine.'},
-  {name:'Portage la Prairie',type:'trading',lat:49.9625,lon:-98.3106,terrain:'river_valley',desc:'Trading post. Full barter. Old HBC fort decaying.'},
-  {name:'Fort Ellice',type:'hbc',lat:50.4786,lon:-101.2722,terrain:'river_valley',desc:`Midpoint resupply. Intersection of the Assiniboine and Qu\'Appelle.`},
-  {name:'Fort Qu\'Appelle',type:'nwmp',lat:50.7833,lon:-101.7500,terrain:'river_valley',desc:'NWMP post. Scrutiny checks mandatory.'},
-  {name:'Touchwood Hills',type:'trading',lat:51.5500,lon:-103.3000,terrain:'wooded',desc:'Cree trader speaks Michif. Knows the northern route.'},
-  {name:'Humboldt Mission',type:'mission',lat:52.2167,lon:-105.1167,terrain:'plains',desc:'Only reliable healing for a long lonely stretch.'},
-  {name:'Batoche',type:'metis',lat:52.7533,lon:-106.1158,terrain:'river_valley',desc:'Spiritual centre of the Saskatchewan Métis. Full ceremony.'},
-  {name:'Gabriel\'s Crossing',type:'river',lat:52.6667,lon:-106.1000,terrain:'river_valley',desc:'Gabriel Dumont operates the ferry. South Saskatchewan crossing.'},
-  {name:'Fort Carlton',type:'hbc',lat:52.8000,lon:-106.2167,terrain:'river_valley',desc:'Major HBC depot. Full trade, full repair. Pemmican stores declining.'},
-  {name:'Fort Pitt',type:'hbc',lat:53.2500,lon:-108.3000,terrain:'river_valley',desc:'Edge of the boreal forest. Small, isolated. Lonely Factor knows all.'},
-  {name:'Fort Edmonton',type:'hbc',lat:53.5333,lon:-113.5000,terrain:'river_valley',desc:'Western terminus. Gateway to the Athabasca. The end of the trail.'}
+  { name: 'Fort Garry',       type: 'hbc',     terrain: 'river_valley', dist: 0,  desc: 'The Red River Settlement. HBC headquarters. Your journey begins.' },
+  { name: 'St. Boniface',     type: 'mission', terrain: 'river_valley', dist: 1,  desc: 'Cathedral and Grey Nuns. Free healing.' },
+  { name: 'St. Norbert',      type: 'metis',   terrain: 'river_valley', dist: 1,  desc: 'Métis parish. Family welcomes you with bannock.' },
+  { name: 'St. François Xavier', type: 'metis', terrain: 'plains',     dist: 2,  desc: 'Métis community. Well-known ford across the Assiniboine.' },
+  { name: 'Portage la Prairie', type: 'trading', terrain: 'river_valley', dist: 2, desc: 'Trading post. Full barter. Old HBC fort decaying.' },
+  { name: 'Fort Ellice',      type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: "Midpoint resupply. Intersection of the Assiniboine and Qu'Appelle." },
+  { name: "Fort Qu'Appelle",  type: 'nwmp',    terrain: 'river_valley', dist: 3,  desc: 'NWMP post. Scrutiny checks mandatory.' },
+  { name: 'Touchwood Hills',  type: 'trading', terrain: 'wooded',      dist: 3,  desc: 'Cree trader speaks Michif. Knows the northern route.' },
+  { name: 'Humboldt Mission', type: 'mission', terrain: 'plains',       dist: 3,  desc: 'Only reliable healing for a long lonely stretch.' },
+  { name: 'Batoche',          type: 'metis',   terrain: 'river_valley', dist: 2,  desc: 'Spiritual centre of the Saskatchewan Métis. Full ceremony.' },
+  { name: "Gabriel's Crossing", type: 'river', terrain: 'river_valley', dist: 1,  desc: "Gabriel Dumont operates the ferry. South Saskatchewan crossing." },
+  { name: 'Fort Carlton',     type: 'hbc',     terrain: 'river_valley', dist: 2,  desc: 'Major HBC depot. Full trade, full repair. Pemmican stores declining.' },
+  { name: 'Fort Pitt',        type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: 'Edge of the boreal forest. Small, isolated.' },
+  { name: 'Fort Edmonton',    type: 'hbc',     terrain: 'river_valley', dist: 5,  desc: 'Western terminus. Gateway to the Athabasca. The end of the trail.' }
 ];
 
 const ITEMS = [
-  {name:'Pemmican Rations',wt:15,count:5,type:'food',desc:'Dried meat and fat. Never spoils.'},
-  {name:'Spare Axle',wt:40,count:1,type:'repair',desc:'Hard maple. Heavy but essential.'},
-  {name:'Shaganappi',wt:5,count:3,type:'repair',desc:'Rawhide strips. Binding and lashing material.'},
-  {name:'Tool Kit',wt:10,count:1,type:'repair',desc:'Axe, auger, drawknife. Required for repairs.'},
-  {name:'Bison Hide',wt:8,count:2,type:'trade',desc:'Folded. Trade value: 1.25 MB each.'},
-  {name:'Canvas Tarp',wt:6,count:1,type:'shelter',desc:'Waterproof. Shelter and cart-raft conversion.'},
-  {name:'Firewood Bundle',wt:10,count:2,type:'fuel',desc:'Dried poplar. Required for cold nights.'},
-  {name:'Rope (50ft)',wt:3,count:1,type:'tool',desc:'Hemp. Crossings, repairs, binding.'},
-  {name:'Medicine Pouch',wt:2,count:1,type:'medical',desc:'Herbal remedies and bandages.'},
-  {name:'Blanket',wt:3,count:1,type:'shelter',desc:'Wool. Winter survival.'},
-  {name:'Beaver Pelts',wt:5,count:1,type:'trade',desc:'Prime bundle. Trade value: 3 MB.'}
+  { name: 'Pemmican Rations', wt: 15, count: 10, type: 'food',    desc: 'Dried meat and fat. Never spoils.' },
+  { name: 'Spare Axle',       wt: 40, count: 1,  type: 'repair',  desc: 'Hard maple. Heavy but essential.' },
+  { name: 'Shaganappi',       wt: 5,  count: 3,  type: 'repair',  desc: 'Rawhide strips. Binding and lashing material.' },
+  { name: 'Tool Kit',         wt: 10, count: 1,  type: 'repair',  desc: 'Axe, auger, drawknife. Required for repairs.' },
+  { name: 'Bison Hide',       wt: 8,  count: 2,  type: 'trade',   desc: 'Folded. Trade value: 1.25 MB each.' },
+  { name: 'Canvas Tarp',      wt: 6,  count: 1,  type: 'shelter', desc: 'Waterproof. Shelter and cart-raft conversion.' },
+  { name: 'Firewood Bundle',  wt: 10, count: 2,  type: 'fuel',    desc: 'Dried poplar. Required for cold nights.' },
+  { name: 'Rope (50ft)',      wt: 3,  count: 1,  type: 'tool',    desc: 'Hemp. Crossings, repairs, binding.' },
+  { name: 'Medicine Pouch',   wt: 2,  count: 1,  type: 'medical', desc: 'Herbal remedies and bandages.' },
+  { name: 'Blanket',          wt: 3,  count: 1,  type: 'shelter', desc: 'Wool. Winter survival.' },
+  { name: 'Beaver Pelts',     wt: 5,  count: 1,  type: 'trade',   desc: 'Prime bundle. Trade value: 3 MB.' }
 ];
 
-let cart = JSON.parse(JSON.stringify(ITEMS));
-
-// ============================================================
-// EVENTS
-// ============================================================
 const EVENTS = {
   plains: [
-    {
-      id:'rough_ground',
-      art:'TODO: ART — cracked axle on rough ground',
-      text:`The trail turns rough. Ruts and stones jostle the cart. You feel the axle groan with each bump.
-
-The ground here is rutted from years of cart traffic — iron-hard channels carved by thousands of wooden wheels. Your cart bucks and sways.`,
-      choices:[
-        {text:'Slow down and pick a careful path',dc:10,mod:'crew',
-          ok:'You thread between the ruts. Slow, but the cart holds together.',
-          bad:'You misjudge a rut. The cart jolts hard. The axle cracks.',wear:1,time:1},
-        {text:'Push through at speed',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:0,always:'You push through. The cart takes the abuse. +1 Wear.',alwaysWear:1}
-      ]
-    },
-    {
-      id:'game_sighted',
-      art:'TODO: ART — pronghorn on the prairie',
-      text:`Movement on the horizon. You shade your eyes — a small herd of pronghorn, maybe two hundred yards south. They haven\'t seen you yet.
-
-Your rifle is in the cart. The ox is tired but could manage a short walk. Fresh meat would last a few days in this heat.`,
-      choices:[
-        {text:'Hunt them (Survival DC 12)',dc:12,mod:'crew',
-          ok:'You creep close, find your mark. The pronghorn drops. By evening, the meat is cut and packed. +3 Food.',
-          bad:`They spook before you\'re in range. You walk back to the cart empty-handed. The day is lost.`,wear:0,time:1,food:3}
-      ]
-    },
-    {
-      id:'abandoned_camp',
-      art:'TODO: ART — abandoned cart in the grass',
-      text:`You spot something in the grass — a cart, half-buried by time. The wood is grey and splitting. One wheel is missing. The box has been scavenged, but not thoroughly.
-
-Someone left this here. Or lost it. You can see the trail they were trying to follow — west, like you.`,
-      choices:[
-        {text:'Search the cart',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:1,always:'You find a coil of rope and some shaganappi strips. Not much, but useful. +1 Rope, +1 Shaganappi.',give:[{name:'Rope (50ft)',amt:1},{name:'Shaganappi',amt:1}]}
-      ]
-    },
-    {
-      id:'good_grazing',
-      art:'TODO: ART — ox grazing in tall grass',
-      text:`The grass here is thick and green. Your ox lows softly, pulling at the tufts as you walk. Good grazing. The animal has been working hard — this stretch is a gift.
-
-You could let the ox feed for an hour. It would mean arriving at the next node a little later, but the animal would be stronger for it.`,
-      choices:[
-        {text:'Let the ox graze',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:1,always:'The ox feeds well. By the time you hitch up again, it\'s steadier. Crew feels more rested too.',crew:'rested'}
-      ]
-    },
-    {
-      id:'trail_marker',
-      art:'TODO: ART — carved wooden post',
-      text:`A post stands at the trail junction — old poplar, carved with initials and a date: 1867. Someone was here before you. The carving is weathered but clear.
-
-The trail splits here. Both paths lead west eventually, but one is shorter and rougher. The other is longer but follows the river.`,
-      choices:[
-        {text:'Take the shorter path',dc:11,mod:'crew',
-          ok:'You read the terrain well. The shorter path is rough but passable. You save a day.',
-          bad:'You misjudge the path. A detour costs you time. +1 day.',wear:0,time:-1}
-      ]
-    }
+    { id: 'rough_ground', text: "The trail turns rough. Ruts and stones jostle the cart. You feel the axle groan with each bump.\n\nThe ground here is rutted from years of cart traffic — iron-hard channels carved by thousands of wooden wheels.", choices: [
+      { text: 'Slow down and pick a careful path', dc: 10, ok: 'You thread between the ruts. Slow, but the cart holds together.', bad: 'You misjudge a rut. The cart jolts hard. The axle cracks.', wear: 1 },
+      { text: 'Push through at speed', dc: null, ok: '', bad: '', always: 'You push through. The cart takes the abuse. +1 Wear.', alwaysWear: 1 }
+    ]},
+    { id: 'game_sighted', text: "Movement on the horizon. You shade your eyes — a small herd of pronghorn, maybe two hundred yards south. They haven't seen you yet.\n\nYour rifle is in the cart. Fresh meat would last a few days in this heat.", choices: [
+      { text: 'Hunt them (Survival DC 12)', dc: 12, ok: 'You creep close, find your mark. The pronghorn drops. By evening, the meat is cut and packed. +3 Food.', bad: "They spook before you're in range. You walk back to the cart empty-handed.", food: 3 }
+    ]},
+    { id: 'abandoned_camp', text: "You spot something in the grass — a cart, half-buried by time. The wood is grey and splitting. One wheel is missing.\n\nSomeone left this here. Or lost it. You can see the trail they were trying to follow — west, like you.", choices: [
+      { text: 'Search the cart', dc: null, ok: '', bad: '', always: 'You find a coil of rope and some shaganappi strips. Not much, but useful. +1 Rope, +1 Shaganappi.', give: [{ name: 'Rope (50ft)', amt: 1 }, { name: 'Shaganappi', amt: 1 }], time: 1 }
+    ]},
+    { id: 'good_grazing', text: "The grass here is thick and green. Your ox lows softly, pulling at the tufts as you walk. Good grazing. The animal has been working hard — this stretch is a gift.", choices: [
+      { text: 'Let the ox graze', dc: null, ok: '', bad: '', always: "The ox feeds well. By the time you hitch up again, it's steadier. Crew feels more rested too.", crew: 'rested', time: 1 }
+    ]},
+    { id: 'trail_marker', text: "A post stands at the trail junction — old poplar, carved with initials and a date: 1867. Someone was here before you.\n\nThe trail splits here. Both paths lead west eventually, but one is shorter and rougher.", choices: [
+      { text: 'Take the shorter path', dc: 11, ok: 'You read the terrain well. The shorter path is rough but passable. You save a day.', bad: 'You misjudge the path. A detour costs you time.', time: -1 }
+    ]},
+    { id: 'prairie_wind', text: "The wind picks up from the southwest — a warm, steady push at your back. The grass bends in waves. Your ox walks lighter today.\n\nGood traveling weather. You make better time than expected.", choices: [
+      { text: 'Push while the wind holds', dc: null, ok: '', bad: '', always: 'You cover more ground than usual. The wind is a gift.', extraProgress: 1 }
+    ]},
+    { id: 'thunderhead', text: "A thunderhead builds on the western horizon — anvil-topped, purple-black. The air goes still. Then the wind hits.\n\nYou have maybe an hour before the storm arrives. The cart needs to be secured.", choices: [
+      { text: 'Secure the cart and wait it out', dc: null, ok: '', bad: '', always: 'You tie down the tarp, hobble the ox, and hunker down. The storm passes in an hour. You lose the rest of the day but the cart is safe.', time: 0 },
+      { text: 'Try to outrun it', dc: 10, ok: 'You push hard and find a low cut in the prairie just as the rain hits. You wait it out dry.', bad: 'The storm catches you on open prairie. Rain soaks the supplies. -1 Food.', food: -1 }
+    ]},
+    { id: 'meadowlark', text: "A meadowlark sings from a fence post — a clear, liquid melody that carries across the prairie. The sun is warm. The trail is good.\n\nOne of those rare perfect days on the Carlton Trail.", choices: [
+      { text: 'Enjoy the day', dc: null, ok: '', bad: '', always: "You walk in good spirits. The crew feels lighter. Sometimes the trail gives you a perfect day — and that's enough.", crew: 'rested' }
+    ]}
   ],
-
   river_valley: [
-    {
-      id:'spring_flooding',
-      art:'TODO: ART — flooded river valley',
-      text:`The river is high. Not impassable, but the ford is muddy and the current is stronger than you\'d like. You can see the trail on the other side — a dark line through the willows.
-
-Your cart is heavy. The ox is steady but not eager. The water comes up to the animal\'s belly.`,
-      choices:[
-        {text:'Ford carefully (Survival DC 12)',dc:12,mod:'crew',
-          ok:'The ox finds its footing. The cart floats slightly but holds. You reach the other side soaked but intact.',
-          bad:'The current pushes the cart sideways. A wheel catches. You wrestle it free but the axle takes damage.',wear:1,time:1},
-        {text:'Convert to cart-raft (Survival DC 14)',dc:14,mod:'crew',
-          ok:'You remove the wheels, lash them underneath, wrap the tarp. The raft floats. You pole across safely. It takes hours but the cart is dry.',
-          bad:'The raft is unstable. Mid-river, it tilts. Supplies get wet. You lose some food to the water.',food:-2,time:2,need:'Canvas Tarp'}
-      ]
-    },
-    {
-      id:'fishing_spot',
-      art:'TODO: ART — river with fish',
-      text:`The river here is slow and deep. You can see fish — silver flashes in the shallows. Your fishing line is in the cart. An hour here could mean fresh food for days.
-
-The trail is good. You could also just keep moving.`,
-      choices:[
-        {text:'Stop and fish (Survival DC 10)',dc:10,mod:'crew',
-          ok:'The fish bite. By midday you have three good-sized northern pike. You clean them and pack them in salt. +2 Food.',
-          bad:'The fish aren\'t biting. You waste an hour and move on empty-handed.',wear:0,time:1,food:2}
-      ]
-    },
-    {
-      id:'other_travelers',
-      art:'TODO: ART — another cart on the trail',
-      text:`You hear it before you see it — the unmistakable squeal of a Red River cart. Another driver, heading east. He waves as you approach.
-
-"Fort Garry?" he calls. "Heard the Factor\'s paying premium for beaver. And the Assiniboine\'s running high — took me half a day to cross."`,
-      choices:[
-        {text:'Exchange news',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:0,always:'You share the road for an hour. He tells you about the trail ahead — good grazing near Touchwood, but watch for mud after the hills. You part ways feeling less alone.'}
-      ]
-    }
+    { id: 'spring_flooding', text: "The river is high. Not impassable, but the ford is muddy and the current is stronger than you'd like. You can see the trail on the other side — a dark line through the willows.\n\nYour cart is heavy. The ox is steady but not eager.", choices: [
+      { text: 'Ford carefully (Survival DC 12)', dc: 12, ok: 'The ox finds its footing. The cart floats slightly but holds. You reach the other side soaked but intact.', bad: 'The current pushes the cart sideways. A wheel catches. You wrestle it free but the axle takes damage.', wear: 1 },
+      { text: 'Convert to cart-raft (Survival DC 14)', dc: 14, ok: 'You remove the wheels, lash them underneath, wrap the tarp. The raft floats. You pole across safely.', bad: 'The raft is unstable. Mid-river, it tilts. Supplies get wet. You lose some food to the water.', food: -2, need: 'Canvas Tarp' }
+    ]},
+    { id: 'fishing_spot', text: "The river here is slow and deep. You can see fish — silver flashes in the shallows. Your fishing line is in the cart. An hour here could mean fresh food for days.", choices: [
+      { text: 'Stop and fish (Survival DC 10)', dc: 10, ok: 'The fish bite. By midday you have three good-sized northern pike. You clean them and pack them in salt. +2 Food.', bad: "The fish aren't biting. You waste an hour and move on empty-handed.", food: 2, time: 1 }
+    ]},
+    { id: 'other_travelers', text: "You hear it before you see it — the unmistakable squeal of a Red River cart. Another driver, heading east. He waves as you approach.\n\n\"Fort Garry?\" he calls. \"Heard the Factor's paying premium for beaver.\"", choices: [
+      { text: 'Exchange news', dc: null, ok: '', bad: '', always: "You share the road for an hour. He tells you about the trail ahead — good grazing near Touchwood, but watch for mud after the hills. You part ways feeling less alone." }
+    ]},
+    { id: 'willow_shade', text: "The trail dips into a stand of willows along the riverbank. The shade is cool and welcome after days on the open prairie. Your ox drinks deep.\n\nA good place to rest for a few minutes. The river murmurs.", choices: [
+      { text: 'Rest in the shade', dc: null, ok: '', bad: '', always: 'You rest for an hour in the cool shade. The ox drinks. The crew feels refreshed.', crew: 'rested', time: 1 }
+    ]},
+    { id: 'mud_hole', text: "The trail has turned to mud — deep, sucking mud that grabs at the wheels. Your ox strains. The cart sinks to the axles.\n\nThis is the worst kind of trail. Every step is work.", choices: [
+      { text: 'Push through', dc: 10, ok: 'You wrestle the cart through. It takes hours but you make it. The cart holds.', bad: 'The cart sinks deeper. You have to unload, carry everything across by hand, then reload. The axle takes a beating. +1 Wear.', wear: 1, time: 1 },
+      { text: 'Find a way around', dc: null, ok: '', bad: '', always: 'You bushwhack around the worst of the mud. It takes an extra day but the cart stays clean.', time: 1 }
+    ]}
   ],
-
   wooded: [
-    {
-      id:'fallen_tree',
-      art:'TODO: ART — fallen tree blocking the trail',
-      text:`A poplar has fallen across the trail. It\'s not large — maybe two feet through — but it\'s enough to block the cart. The ground around it is soft. You could try to go around, but the undergrowth is thick.
-
-Your axe is in the cart. It\'ll take time, but you can clear it.`,
-      choices:[
-        {text:'Chop through it',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:1,always:'You fell the tree and clear the trail. Your shoulders ache but the path is open. +1 Firewood.',give:[{name:'Firewood Bundle',amt:1}]},
-        {text:'Go around through the bush',dc:10,mod:'crew',
-          ok:'You find a gap in the undergrowth. The cart scrapes through. Tight, but it works.',
-          bad:'The cart catches on a stump. You have to back out and try again. The axle takes a hit.',wear:1,time:1}
-      ]
-    },
-    {
-      id:'berries',
-      art:'TODO: ART — berry bushes',
-      text:`The trail edges are thick with saskatoon berries. They\'re ripe — dark purple, almost black. Your mouth waters. The bushes go on for a hundred yards.
-
-You could stop and gather. They won\'t last long in this heat, but a day or two of fresh fruit would be welcome.`,
-      choices:[
-        {text:'Gather berries',dc:null,mod:null,
-          ok:'',bad:'',wear:0,time:1,always:'You fill a cloth with berries. They\'re sweet and warm from the sun. +1 Food (perishable).',food:1}
-      ]
-    }
+    { id: 'fallen_tree', text: "A poplar has fallen across the trail. It's not large — maybe two feet through — but it's enough to block the cart. The ground around it is soft.\n\nYour axe is in the cart. It'll take time, but you can clear it.", choices: [
+      { text: 'Chop through it', dc: null, ok: '', bad: '', always: 'You fell the tree and clear the trail. Your shoulders ache but the path is open. +1 Firewood.', give: [{ name: 'Firewood Bundle', amt: 1 }], time: 1 },
+      { text: 'Go around through the bush', dc: 10, ok: 'You find a gap in the undergrowth. The cart scrapes through. Tight, but it works.', bad: 'The cart catches on a stump. You have to back out and try again. The axle takes a hit.', wear: 1 }
+    ]},
+    { id: 'berries', text: "The trail edges are thick with saskatoon berries. They're ripe — dark purple, almost black. Your mouth waters. The bushes go on for a hundred yards.\n\nYou could stop and gather. They won't last long in this heat, but a day or two of fresh fruit would be welcome.", choices: [
+      { text: 'Gather berries', dc: null, ok: '', bad: '', always: "You fill a cloth with berries. They're sweet and warm from the sun. +1 Food.", food: 1, time: 1 }
+    ]},
+    { id: 'deer_crossing', text: "A white-tailed deer bounds across the trail ahead — then another, and another. A small herd, spooked by something.\n\nThe forest is alive around you. You hear birds you can't name. The air smells of pine and earth.", choices: [
+      { text: 'Watch them pass', dc: null, ok: '', bad: '', always: 'You pause and watch the deer disappear into the trees. A moment of peace on a long journey.' }
+    ]}
   ],
-
   uplands: [
-    {
-      id:'steep_descent',
-      art:'TODO: ART — steep coulee descent',
-      text:`The trail drops into a coulee — steep, maybe thirty feet down. The path switchbacks, but it\'s narrow. Your cart is heavy. The ox plants its feet at the top.
-
-You\'ve seen carts tip on slopes like this. The load shifts, the cart rolls, and everything scatters.`,
-      choices:[
-        {text:'Descend carefully, rope the cart',dc:11,mod:'crew',
-          ok:'You tie the rope to a tree and lower the cart down inch by inch. The ox follows. Slow, but safe.',
-          bad:'Halfway down, the rope slips. The cart lurches. You catch it, but the wheel hits rock. +1 Wear.',wear:1,time:1,need:'Rope (50ft)'},
-        {text:'Descend without rope',dc:9,mod:'crew',
-          ok:'You guide the cart down. The ox is sure-footed. You reach the bottom without incident.',
-          bad:'The cart picks up speed. You can\'t hold it. It hits the bottom hard. +1 Wear.',wear:1,time:0}
-      ]
-    }
+    { id: 'steep_descent', text: "The trail drops into a coulee — steep, maybe thirty feet down. The path switchbacks, but it's narrow. Your cart is heavy. The ox plants its feet at the top.\n\nYou've seen carts tip on slopes like this. The load shifts, the cart rolls, and everything scatters.", choices: [
+      { text: 'Descend carefully, rope the cart', dc: 11, ok: 'You tie the rope to a tree and lower the cart down inch by inch. The ox follows. Slow, but safe.', bad: 'Halfway down, the rope slips. The cart lurches. You catch it, but the wheel hits rock. +1 Wear.', wear: 1, need: 'Rope (50ft)' },
+      { text: 'Descend without rope', dc: 9, ok: 'You guide the cart down. The ox is sure-footed. You reach the bottom without incident.', bad: "The cart picks up speed. You can't hold it. It hits the bottom hard. +1 Wear.", wear: 1 }
+    ]},
+    { id: 'eagle', text: "An eagle circles high above the coulee — riding the thermals, wings motionless. It watches you with ancient eyes.\n\nThe uplands stretch in every direction. You can see the trail winding west, and beyond it, nothing but prairie and sky.", choices: [
+      { text: 'Take in the view', dc: null, ok: '', bad: '', always: 'You stand for a moment, taking in the vastness. The journey ahead feels both impossible and inevitable. The eagle circles once more, then rides the wind west.' }
+    ]}
   ],
-
   river: [
-    {
-      id:'major_crossing',
-      art:'TODO: ART — wide river crossing',
-      text:`The river stretches wide before you. The current is visible — not fast, but steady. The ford is marked by willow poles on both banks, but the water is higher than usual.
-
-You\'re carrying a tarp that could make a raft. But that takes hours. The ford is passable — probably.`,
-      choices:[
-        {text:'Ford the river (Survival DC 12)',dc:12,mod:'crew',
-          ok:'The ox finds the shallow channel. Water laps at the cart bed but nothing shifts. You reach the far bank soaked but whole.',
-          bad:'Midway across, a wheel drops into a hole. The cart tilts. You wrestle it level but the axle cracks. +1 Wear. Some supplies get wet.',wear:1,food:-1,time:1},
-        {text:'Build a cart-raft (Survival DC 14)',dc:14,mod:'crew',
-          ok:'You dismantle, wrap, and lash. The raft floats. Three hours later, you\'re across with a dry cart and your patience intact.',
-          bad:'The raft is clumsy. Mid-river it spins. You get wet and embarrassed but make it across.',food:-1,time:3,need:'Canvas Tarp'}
-      ]
-    }
+    { id: 'major_crossing', text: "The river stretches wide before you. The current is visible — not fast, but steady. The ford is marked by willow poles on both banks, but the water is higher than usual.\n\nYou're carrying a tarp that could make a raft. But that takes hours. The ford is passable — probably.", choices: [
+      { text: 'Ford the river (Survival DC 12)', dc: 12, ok: 'The ox finds the shallow channel. Water laps at the cart bed but nothing shifts. You reach the far bank soaked but whole.', bad: 'Midway across, a wheel drops into a hole. The cart tilts. You wrestle it level but the axle cracks. +1 Wear. Some supplies get wet.', wear: 1, food: -1 },
+      { text: 'Build a cart-raft (Survival DC 14)', dc: 14, ok: "You dismantle, wrap, and lash. The raft floats. Three hours later, you're across with a dry cart and your patience intact.", bad: 'The raft is clumsy. Mid-river it spins. You get wet and embarrassed but make it across.', food: -1, need: 'Canvas Tarp' }
+    ]}
   ]
 };
 
-// Terrain fallback — plains events used for any undefined terrain
+const TRAIL_FLAVOR = {
+  plains: [
+    "The prairie stretches flat in every direction. Grass to the horizon. Your ox plods steady.",
+    "A long day under open sky. The cart creaks its familiar song. The ox knows the rhythm.",
+    "The sun arcs west. You walk. The trail is good today — flat, dry, unremarkable.",
+    "Prairie grass whispers around the cart wheels. The ox plods on. Another day on the Carlton Trail.",
+    "The wind is at your back. You make good time. The prairie rolls on forever.",
+    "A hawk circles overhead. The grass is waist-high. You are small on this vast land.",
+    "The trail is a dark line through golden grass. You follow it west. Always west."
+  ],
+  river_valley: [
+    "The trail descends into a river valley. Trees appear — poplar and willow. The air smells of water.",
+    "You follow the riverbank. The ox drinks when you stop. The willows provide welcome shade.",
+    "The valley is green and cool. Birds you don't recognize call from the cottonwoods.",
+    "The trail winds between river and ridge. The ox picks its way carefully on the slope.",
+    "You cross a shallow creek. The water is cold and clear. The cart wheels splash through."
+  ],
+  wooded: [
+    "The trail winds through popple forest. Shafts of light break through the canopy.",
+    "The forest closes in around you. The air is cooler here. The ox pushes through undergrowth.",
+    "Poplar leaves tremble in the breeze. The trail is soft with fallen leaves. The cart rolls quietly.",
+    "You hear a woodpecker somewhere in the trees. The forest smells of earth and green wood."
+  ],
+  uplands: [
+    "You climb into higher ground. The wind picks up. You can see for miles.",
+    "The trail switchbacks up the coulee wall. The ox strains. The cart tilts on the slope.",
+    "From the ridge top, you can see the trail winding below — a thread through the grass.",
+    "The uplands are wind-scoured and open. The ox leans into the gusts."
+  ],
+  river: [
+    "You follow the river west. The water is high but the trail is clear.",
+    "The river murmurs beside you. The ox drinks deeply. The day is long but the water keeps you company."
+  ]
+};
+
 function getEventsForTerrain(t) { return EVENTS[t] || EVENTS.plains; }
+function getTrailFlavor(terrain) {
+  const pool = TRAIL_FLAVOR[terrain] || TRAIL_FLAVOR.plains;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 
-// ============================================================
-// MAP
-// ============================================================
-const map = L.map('map',{zoomControl:false,attributionControl:false})
-  .setView([51.5,-102],5);
+// ── Engine ──────────────────────────────────────────────────────
+let game = null;
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-  {maxZoom:8,minZoom:4}).addTo(map);
+function createGame(seed) {
+  const rng = makeRNG(seed);
+  function rand() { return rng ? rng() : Math.random(); }
+  function d20() { return Math.floor(rand() * 20) + 1; }
 
-const trailLine = L.polyline(NODES.map(n=>[n.lat,n.lon]),
-  {color:'#8b6914',weight:3,opacity:0.7}).addTo(map);
+  const cart = JSON.parse(JSON.stringify(ITEMS));
 
-const markers = NODES.map((n,i) => {
-  const m = L.circleMarker([n.lat,n.lon], {
-    radius: i===S.node ? 9 : 5,
-    fillColor: i===S.node ? '#c0392b' : (i<S.node ? '#5a4a3a' : '#8b6914'),
-    color:'#3d2b1f', weight:2, fillOpacity: 0.9
+  const S = {
+    day: 1, month: 6, season: 'summer', crew: 'rested',
+    food: 20, wear: 0, node: 0, segmentDay: 0,
+    over: false, won: false, pendingEvent: null, pendingSettlement: null,
+    score: 0, camps: 0, eventsResolved: 0, tradesMade: 0
+  };
+
+  const narrative = [];
+  function say(text) { narrative.push(text); }
+
+  function crewMod() { return S.crew === 'rested' ? 1 : S.crew === 'tired' ? 0 : -2; }
+  function wearMod() { return S.wear <= 1 ? 0 : S.wear === 2 ? -1 : -3; }
+  function totalMod() { return crewMod() + wearMod(); }
+  function totalWt() { return cart.reduce((s, i) => s + i.wt * i.count, 0); }
+
+  function advanceMonth() {
+    if (S.day > DAYS_IN_MONTH[S.month]) {
+      S.day -= DAYS_IN_MONTH[S.month];
+      S.month++;
+      if (S.month > 11) { S.over = true; S.won = false; }
+    }
+    S.season = SEASON_OF[S.month] || 'deep winter';
+  }
+
+  function checkGameOver() {
+    if (S.over) return;
+    if (S.food <= 0) {
+      S.over = true;
+      say("You have run out of food.\n\nThe trail stretches ahead, but your crew cannot go on. Weak, you make camp and fire smoke signals. Whether anyone comes in time is another story.\n\n— Game Over —");
+    }
+    if (S.wear >= 4) {
+      S.over = true;
+      say("The cart breaks down completely.\n\nThe axle snaps. The wheel collapses. You stand on the prairie with your supplies scattered. Fort Edmonton is still days away.\n\n— Game Over —");
+    }
+    if (S.month >= 11 && S.node < NODES.length - 1) {
+      S.over = true;
+      say(`Winter has come.\n\nThe first snow falls on the prairie. The trail disappears under white. You are ${NODES.length - 1 - S.node} nodes from Fort Edmonton. The journey will have to wait until spring.\n\n— Game Over —`);
+    }
+  }
+
+  function calcScore() {
+    if (!S.won) return 0;
+    const tradeGoods = cart.filter(i => i.type === 'trade' && i.count > 0).reduce((s, i) => s + i.count, 0);
+    let score = 1000;
+    score -= S.day * 10;
+    score -= S.wear * 50;
+    score += tradeGoods * 100;
+    score += S.food * 15;
+    score -= S.camps * 20;
+    return Math.max(score, 0);
+  }
+
+  function settlementAction(action) {
+    S.pendingSettlement = null;
+    if (action === 'continue') { say("You pack up and head west. The trail awaits."); return; }
+    if (action === 'rest') { S.crew = 'rested'; S.food += 2; say("You rest. The crew recovers. Food resupplied."); }
+    if (action === 'repair' && S.wear > 0) { S.wear = Math.max(0, S.wear - 2); say(`The workshop repairs your cart. Wear reduced to ${S.wear}.`); }
+    if (action === 'heal') { S.crew = 'rested'; say("The nuns tend to your crew. Hot soup, clean bandages. You feel renewed."); }
+    if (action === 'trade') {
+      const tg = cart.find(i => i.type === 'trade' && i.count > 0);
+      if (tg) { tg.count--; S.food += 3; S.tradesMade++; say(`You trade a ${tg.name} for supplies. +3 Food.`); }
+      else say("You browse the goods, but have nothing to trade.");
+    }
+  }
+
+  function getSettlementActions(n) {
+    const a = [];
+    if (n.type === 'hbc') a.push('trade', 'repair', 'rest');
+    else if (n.type === 'metis') a.push('trade', 'rest');
+    else if (n.type === 'trading') a.push('trade', 'rest');
+    else if (n.type === 'mission') a.push('rest', 'heal');
+    else if (n.type === 'nwmp') a.push('trade', 'rest');
+    a.push('continue');
+    return a;
+  }
+
+  function pickEvent() {
+    if (rand() > 0.35) return null;
+    const pool = getEventsForTerrain(NODES[S.node].terrain);
+    return pool[Math.floor(rand() * pool.length)];
+  }
+
+  function resolveChoice(ev, ci) {
+    const ch = ev.choices[ci];
+    let result = { roll: null, total: null, dc: null, success: null, text: '', effects: [] };
+    if (ch.need && !cart.some(i => i.name === ch.need && i.count > 0)) {
+      result.text = `You don't have a ${ch.need}. You can't do that.`; result.success = false; return result;
+    }
+    if (ch.dc !== null) {
+      const roll = d20(); const total = roll + totalMod(); const ok = total >= ch.dc;
+      result.roll = roll; result.total = total; result.dc = ch.dc; result.success = ok;
+      result.text = ok ? `Success. ${ch.ok}` : `Failure. ${ch.bad}`;
+      if (!ok) { S.wear += ch.wear || 0; result.effects.push(`+${ch.wear || 0} Wear`); }
+    } else if (ch.always) {
+      result.text = ch.always; result.success = true;
+      if (ch.alwaysWear) { S.wear += ch.alwaysWear; result.effects.push(`+${ch.alwaysWear} Wear`); }
+    }
+    if (ch.time) { if (ch.time > 0) { S.day += ch.time; result.effects.push(`+${ch.time} day(s)`); } }
+    if (ch.food) { if (ch.dc !== null) { if (result.success) { S.food += ch.food; result.effects.push(`${ch.food > 0 ? '+' : ''}${ch.food} Food`); } } else { S.food += ch.food; result.effects.push(`${ch.food > 0 ? '+' : ''}${ch.food} Food`); } }
+    if (ch.crew) { S.crew = ch.crew; result.effects.push(`Crew: ${ch.crew}`); }
+    if (ch.give) { ch.give.forEach(g => { const item = cart.find(i => i.name === g.name); if (item) { item.count += g.amt; result.effects.push(`+${g.amt} ${g.name}`); } }); }
+    if (ch.extraProgress) { S.segmentDay += ch.extraProgress; result.effects.push(`+${ch.extraProgress} progress`); }
+    return result;
+  }
+
+  function travelOneDay() {
+    if (S.over) return [];
+    if (S.pendingSettlement) return [];
+    const currentDist = NODES[S.node + 1]?.dist || 1;
+    S.food--; S.segmentDay++; S.day++; advanceMonth();
+    const stepLog = [];
+
+    if (S.segmentDay >= currentDist) {
+      S.node++; S.segmentDay = 0;
+      const n = NODES[S.node];
+      if (S.node >= NODES.length - 1) {
+        S.over = true;
+        const hasTrade = cart.some(i => i.type === 'trade' && i.count > 0);
+        S.won = hasTrade && S.wear < 4;
+        S.score = calcScore();
+        const tgCount = cart.filter(i => i.type === 'trade' && i.count > 0).reduce((s, i) => s + i.count, 0);
+        if (S.won) {
+          say(`FORT EDMONTON — Day ${S.day}\n\nYou made it.\n\nThe palisade walls of Fort Edmonton rise before you. The cart — battered, worn, but holding — creaks through the gate. You have ${tgCount} trade goods.\n\nThe Factor looks at your cart, at you, and nods. "Long journey?"\n\n— You have completed the Cart Trail —\nDays: ${S.day} | Wear: ${S.wear} | Food: ${S.food} | Score: ${S.score}`);
+        } else {
+          say(`FORT EDMONTON — Day ${S.day}\n\nYou arrive at Fort Edmonton, but you have no trade goods to sell. The journey was survival, not profit.\n\n— Journey Complete (No Trade Goods) —`);
+        }
+        return [];
+      }
+      say(`Day ${S.day} — ${n.name}\n\n${n.desc}`);
+      if (n.type !== 'river') { S.pendingSettlement = n; stepLog.push({ action: 'arrive', node: n.name, nodeType: n.type, actions: getSettlementActions(n) }); }
+    } else {
+      const ev = pickEvent();
+      if (ev) {
+        S.pendingEvent = ev;
+        const progress = `${S.segmentDay}/${currentDist} days to ${NODES[S.node + 1].name}`;
+        say(`Day ${S.day} — On the trail (${progress})\n\n${ev.text}`);
+        stepLog.push({ action: 'event', event: ev.id, choices: ev.choices.map(c => c.text) });
+      } else {
+        const flavor = getTrailFlavor(NODES[S.node].terrain);
+        const progress = `${S.segmentDay}/${currentDist} days to ${NODES[S.node + 1].name}`;
+        say(`Day ${S.day} — On the trail (${progress})\n\n${flavor}`);
+      }
+    }
+    checkGameOver();
+    return stepLog;
+  }
+
+  function chooseEventChoice(choiceIndex) {
+    if (!S.pendingEvent) return null;
+    const ev = S.pendingEvent; S.pendingEvent = null; S.eventsResolved++;
+    const result = resolveChoice(ev, choiceIndex);
+    say(result.text);
+    const currentDist = NODES[S.node + 1]?.dist || 1;
+    if (S.segmentDay >= currentDist) {
+      S.node++; S.segmentDay = 0;
+      const n = NODES[S.node];
+      if (S.node >= NODES.length - 1) {
+        S.over = true;
+        const hasTrade = cart.some(i => i.type === 'trade' && i.count > 0);
+        S.won = hasTrade && S.wear < 4;
+        S.score = calcScore();
+      }
+      say(`Day ${S.day} — ${n.name}\n\n${n.desc}`);
+      if (n.type !== 'river' && S.node < NODES.length - 1) S.pendingSettlement = n;
+    }
+    checkGameOver();
+    return [{ action: 'eventResolved', event: ev.id, choiceIndex, result }];
+  }
+
+  function makeCamp() {
+    if (S.pendingSettlement) return;
+    S.food--; S.camps++;
+    if (S.crew === 'exhausted') S.crew = 'tired';
+    else if (S.crew === 'tired') S.crew = 'rested';
+    const hasTools = cart.some(i => i.name === 'Tool Kit' && i.count > 0);
+    const hasShag = cart.some(i => i.name === 'Shaganappi' && i.count > 0);
+    if (hasTools && hasShag && S.wear > 0) {
+      const sh = cart.find(i => i.name === 'Shaganappi'); sh.count--; S.wear--;
+      say(`Camp — Day ${S.day}\n\nYou make camp and repair the cart. Shaganappi strips tighten the joints. Wear reduced to ${S.wear}.`);
+    } else {
+      say(`Camp — Day ${S.day}\n\nYou make camp as the sun sets. The ox grazes. Crew: ${S.crew}. Food: ${S.food}.`);
+    }
+    S.day++; advanceMonth(); checkGameOver();
+  }
+
+  return {
+    travelOneDay, makeCamp, chooseEventChoice, settlementAction,
+    getState() { return JSON.parse(JSON.stringify(S)); },
+    getCart() { return JSON.parse(JSON.stringify(cart)); },
+    getNarrative() { return [...narrative]; },
+    isOver() { return S.over; }, hasWon() { return S.won; }, getScore() { return S.score; },
+    hasPendingEvent() { return S.pendingEvent !== null; },
+    getPendingEvent() { return S.pendingEvent ? { id: S.pendingEvent.id, text: S.pendingEvent.text, choices: S.pendingEvent.choices.map(c => ({ text: c.text, dc: c.dc, need: c.need })) } : null },
+    getCurrentNode() { return NODES[S.node]; },
+    getNextNode() { return NODES[S.node + 1] || null; },
+    getTotalWeight() { return totalWt(); },
+    getAvailableActions() {
+      if (S.pendingEvent) return { type: 'event', choices: S.pendingEvent.choices.map((c, i) => ({ index: i, text: c.text, dc: c.dc, need: c.need })) };
+      if (S.pendingSettlement) return { type: 'settlement', node: S.pendingSettlement.name, nodeType: S.pendingSettlement.type, actions: getSettlementActions(S.pendingSettlement) };
+      return { type: 'travel', actions: ['travel', 'camp'] };
+    },
+    stateSummary() {
+      const n = NODES[S.node]; const next = NODES[S.node + 1]; const dist = next ? next.dist : 0;
+      return {
+        day: S.day, month: MONTHS[S.month], location: n.name, nodeType: n.type,
+        food: S.food, wear: S.wear, crew: S.crew, node: S.node, totalNodes: NODES.length,
+        segmentDay: S.segmentDay, segmentDist: dist, nextNode: next ? next.name : null,
+        totalWeight: totalWt(), over: S.over, won: S.won, score: S.score,
+        pendingEvent: S.pendingEvent ? S.pendingEvent.id : null
+      };
+    },
+    fullSnapshot() { return { state: this.getState(), cart: this.getCart(), narrative: this.getNarrative(), summary: this.stateSummary(), pendingEvent: this.getPendingEvent() }; }
+  };
+}
+
+// ═══════════════════════════════════════════════════════════
+// UI
+// ═══════════════════════════════════════════════════════════
+
+const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
+
+const trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8b6914', weight: 3, opacity: 0.7 }).addTo(map);
+const markers = NODES.map((n, i) => {
+  const m = L.circleMarker([n.lat, n.lon], {
+    radius: i === 0 ? 9 : 5, fillColor: i === 0 ? '#c0392b' : '#8b6914',
+    color: '#3d2b1f', weight: 2, fillOpacity: 0.9
   }).addTo(map);
-  m.bindTooltip(n.name,{permanent:false,direction:'top'});
+  m.bindTooltip(n.name, { permanent: false, direction: 'top' });
   return m;
 });
 
-// ============================================================
-// DICE
-// ============================================================
-function d20() { return Math.floor(Math.random()*20)+1; }
-
-function crewMod() {
-  if (S.crew==='rested') return 1;
-  if (S.crew==='tired') return 0;
-  return -2;
-}
-
-function wearMod() {
-  if (S.wear<=1) return 0;
-  if (S.wear===2) return -1;
-  return -3;
-}
-
-function totalMod() { return crewMod() + wearMod(); }
-
-// ============================================================
-// UI
-// ============================================================
-function totalWt() { return cart.reduce((s,i)=>s+i.wt*i.count,0); }
-
 function updateStatus() {
-  const n = NODES[S.node];
-  document.getElementById('s-day').textContent = 'Day '+S.day;
-  document.getElementById('s-month').textContent = MONTHS[S.month]+' '+(((S.day-1)%30)+1);
-  document.getElementById('s-location').textContent = n.name;
-  document.getElementById('s-season').textContent = (SEASON_OF[S.month]||'deep winter').replace(' ',' ');
-  document.getElementById('s-crew').textContent = 'Crew: '+S.crew.charAt(0).toUpperCase()+S.crew.slice(1);
-  document.getElementById('s-food').textContent = 'Food: '+S.food;
-  document.getElementById('s-wear').textContent = 'Wear: '+S.wear;
+  const s = game.stateSummary();
+  const next = game.getNextNode();
+  document.getElementById('s-day').textContent = 'Day ' + s.day;
+  document.getElementById('s-month').textContent = s.month + ' ' + (((s.day - 1) % 30) + 1);
+  document.getElementById('s-season').textContent = s.season.replace(' ', ' ');
+
+  const segEl = document.getElementById('s-segment');
+  if (s.pendingSettlement) {
+    segEl.textContent = s.location + ' — you have arrived';
+  } else if (next) {
+    segEl.textContent = `${s.location} → ${next.name} (${s.segmentDay}/${s.segmentDist} days)`;
+  } else {
+    segEl.textContent = s.location;
+  }
+
+  const foodEl = document.getElementById('s-food');
+  foodEl.textContent = s.food;
+  foodEl.className = 'stat-value' + (s.food <= 3 ? ' food-low' : '');
+
+  const wearEl = document.getElementById('s-wear');
+  wearEl.textContent = s.wear;
+  wearEl.className = 'stat-value' + (s.wear >= 3 ? ' wear-high' : '');
+
+  document.getElementById('s-crew').textContent = s.crew.charAt(0).toUpperCase() + s.crew.slice(1);
 }
 
-function say(html) { document.getElementById('narrative').innerHTML = html; }
-
-function sayAppend(html) { document.getElementById('narrative').innerHTML += html; }
-
-// ============================================================
-// INVENTORY
-// ============================================================
-function showInv() {
-  const el = document.getElementById('inv-overlay');
-  const list = document.getElementById('inv-list');
-  const fill = document.getElementById('w-fill');
-  const txt = document.getElementById('w-text');
-  const wt = totalWt();
-  const pct = Math.min((wt/450)*100,100);
-  fill.style.width = pct+'%';
-  fill.classList.toggle('over', wt>450);
-  txt.textContent = wt+' / 450 kg'+(wt>450?' — OVERLOADED!':'');
-  list.innerHTML = '';
-  cart.forEach(it => {
-    if (it.count<=0) return;
-    const d = document.createElement('div');
-    d.className = 'inv-item';
-    d.innerHTML = `<span>${it.name} ×${it.count}</span><span>${it.wt*it.count} kg</span>`;
-    list.appendChild(d);
+function updateMap() {
+  const s = game.stateSummary();
+  markers.forEach((m, i) => {
+    if (i === s.node) { m.setRadius(9); m.setStyle({ fillColor: '#c0392b' }); }
+    else if (i < s.node) { m.setRadius(5); m.setStyle({ fillColor: '#5a4a3a', fillOpacity: 0.5 }); }
+    else { m.setRadius(5); m.setStyle({ fillColor: '#8b6914', fillOpacity: 0.9 }); }
   });
-  el.style.display = 'flex';
 }
 
-function hideInv() { document.getElementById('inv-overlay').style.display = 'none'; }
-
-// ============================================================
-// CREW
-// ============================================================
-function showCrew() {
-  const el = document.getElementById('crew-overlay');
-  const txt = document.getElementById('crew-text');
-  const desc = S.crew==='rested' ? 'Your crew is rested and ready. The ox is strong. You feel confident.'
-    : S.crew==='tired' ? 'Your crew is tired. The ox is slowing. You need rest soon.'
-    : 'Your crew is exhausted. The ox can barely walk. You must rest immediately or risk collapse.';
-  txt.innerHTML = `<p>${desc}</p><p style="margin-top:8px;font-size:12px;color:#8b6914">Modifier to checks: ${crewMod()>=0?'+':''}${crewMod()}</p>`;
-  el.style.display = 'flex';
+function showNarrative() {
+  const n = game.getNarrative();
+  document.getElementById('narrative').innerHTML = n.map(t => `<div class="scene-text">${t}</div>`).join('');
+  document.getElementById('narrative').scrollTop = document.getElementById('narrative').scrollHeight;
 }
 
-function hideCrew() { document.getElementById('crew-overlay').style.display = 'none'; }
-
-// ============================================================
-// EVENTS
-// ============================================================
-function pickEvent() {
-  if (Math.random() > 0.4) return null; // 60% nothing happens
-  const terrain = NODES[S.node].terrain;
-  const pool = getEventsForTerrain(terrain);
-  return pool[Math.floor(Math.random()*pool.length)];
+// ── Overlay helpers ─────────────────────────────────────────────
+function hideAllOverlays() {
+  document.querySelectorAll('.overlay').forEach(el => el.classList.remove('active'));
 }
 
-function presentEvent(ev) {
-  S.pendingEvent = ev;
-  document.getElementById('event-art').textContent = ev.art;
-  document.getElementById('event-text').innerHTML = '<p>'+ev.text.replace(/\n\n/g,'</p><p>')+'</p>';
+// ── Event overlay ───────────────────────────────────────────────
+function presentEvent() {
+  const ev = game.getPendingEvent();
+  if (!ev) return;
+  document.getElementById('event-art').textContent = 'TODO: ART — ' + ev.id;
+  document.getElementById('event-text').innerHTML = '<p>' + ev.text.replace(/\n\n/g, '</p><p>') + '</p>';
   const choices = document.getElementById('event-choices');
   choices.innerHTML = '';
-  ev.choices.forEach((ch,i) => {
+  ev.choices.forEach((ch, i) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
     btn.textContent = ch.text;
-    btn.onclick = () => resolveChoice(ev,i);
+    btn.onclick = () => { hideAllOverlays(); const r = game.chooseEventChoice(i); showNarrative(); updateStatus(); updateMap(); checkOverlays(); };
     choices.appendChild(btn);
   });
-  document.getElementById('event-overlay').style.display = 'flex';
+  document.getElementById('event-overlay').classList.add('active');
 }
 
-function resolveChoice(ev, ci) {
-  const ch = ev.choices[ci];
-  const overlay = document.getElementById('event-overlay');
-  overlay.style.display = 'none';
-  S.pendingEvent = null;
+// ── Settlement overlay ──────────────────────────────────────────
+function presentSettlement() {
+  const s = game.stateSummary();
+  const node = game.getCurrentNode();
+  if (!s.pendingSettlement) return;
 
-  let html = '';
+  document.getElementById('settlement-art').textContent = 'TODO: ART — ' + node.name;
+  document.getElementById('settlement-name').textContent = node.name;
+  document.getElementById('settlement-desc').textContent = node.desc;
 
-  // Check for required item
-  if (ch.need && !cart.some(i=>i.name===ch.need && i.count>0)) {
-    html = `<p class="scene-text">You don\'t have a ${ch.need}. You can\'t do that.</p>`;
-    say(html);
-    return;
-  }
+  const actions = game.getAvailableActions();
+  const container = document.getElementById('settlement-actions');
+  container.innerHTML = '';
 
-  if (ch.dc !== null) {
-    const roll = d20();
-    const total = roll + totalMod();
-    const ok = total >= ch.dc;
-    html = `<p><em>You roll a <span class="dice-result">${roll}</span>`;
-    const m = totalMod();
-    if (m!==0) html += ` ${m>=0?'+':''}${m}`;
-    html += ` = ${total} vs DC ${ch.dc}</em></p>`;
-    if (ok) {
-      html += `<p><strong>Success.</strong> ${ch.ok}</p>`;
-    } else {
-      html += `<p><strong>Failure.</strong> ${ch.bad}</p>`;
-      S.wear += ch.wear || 0;
-    }
-  } else if (ch.always) {
-    html = `<p>${ch.always}</p>`;
-    if (ch.alwaysWear) S.wear += ch.alwaysWear;
-  }
+  const labels = {
+    trade: '🛒 Trade', repair: '🔧 Repair Cart', rest: '🏕 Rest', heal: '💊 Seek Healing', continue: '🚩 Continue West'
+  };
 
-  // Apply effects
-  if (ch.time) S.day += ch.time;
-  if (ch.food && ch.dc!==null) {
-    const roll = d20()+totalMod();
-    if (roll >= ch.dc) S.food += ch.food;
-  } else if (ch.food) {
-    S.food += ch.food;
-  }
-  if (ch.crew) S.crew = ch.crew;
-  if (ch.give) {
-    ch.give.forEach(g => {
-      const item = cart.find(i=>i.name===g.name);
-      if (item) item.count += g.amt;
-    });
-  }
-
-  say(`<div class="scene-text">${html}</div>`);
-  updateStatus();
-  checkGameOver();
-}
-
-// ============================================================
-// TRAVEL
-// ============================================================
-function advanceMonth() {
-  const dim = [0,31,28,31,30,31,30,31,31,30,31,30,31];
-  if (S.day > dim[S.month]) {
-    S.day -= dim[S.month];
-    S.month++;
-    if (S.month > 11) { S.over = true; S.won = false; }
-  }
-  S.season = SEASON_OF[S.month] || 'deep winter';
-}
-
-function updateMarkers() {
-  markers.forEach((m,i) => {
-    if (i===S.node) { m.setRadius(9); m.setStyle({fillColor:'#c0392b'}); }
-    else if (i<S.node) { m.setRadius(5); m.setStyle({fillColor:'#5a4a3a',fillOpacity:0.5}); }
-    else { m.setRadius(5); m.setStyle({fillColor:'#8b6914',fillOpacity:0.9}); }
+  actions.actions.forEach(act => {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn';
+    btn.textContent = labels[act] || act;
+    btn.onclick = () => {
+      game.settlementAction(act);
+      hideAllOverlays();
+      showNarrative();
+      updateStatus();
+      checkOverlays();
+    };
+    container.appendChild(btn);
   });
+
+  document.getElementById('settlement-overlay').classList.add('active');
 }
 
-function terrainDesc(t) {
-  return t==='river_valley' ? 'The trail descends into a river valley. Trees appear — poplar and willow. The air smells of water.'
-    : t==='wooded' ? 'The trail winds through popple forest. Shafts of light break through the canopy.'
-    : t==='uplands' ? 'You climb into higher ground. The wind picks up. You can see for miles.'
-    : 'The prairie stretches flat in every direction. Grass to the horizon. Your ox plods steady.';
+// ── Cart overlay ────────────────────────────────────────────────
+function showCart() {
+  const cart = game.getCart();
+  const list = document.getElementById('inv-list');
+  const fill = document.getElementById('w-fill');
+  const txt = document.getElementById('w-text');
+  const wt = game.getTotalWeight();
+  const pct = Math.min((wt / 450) * 100, 100);
+  fill.style.width = pct + '%';
+  fill.classList.toggle('over', wt > 450);
+  txt.textContent = wt + ' / 450 kg' + (wt > 450 ? ' — OVERLOADED!' : '');
+  list.innerHTML = '';
+  cart.forEach(it => {
+    if (it.count <= 0) return;
+    const d = document.createElement('div');
+    d.className = 'inv-item';
+    d.innerHTML = `<span>${it.name} ×${it.count}</span><span>${it.wt * it.count} kg</span>`;
+    list.appendChild(d);
+  });
+  document.getElementById('cart-overlay').classList.add('active');
 }
 
-function proceed() {
-  if (S.over) return;
+// ── Crew overlay ────────────────────────────────────────────────
+function showCrew() {
+  const s = game.stateSummary();
+  const desc = s.crew === 'rested' ? 'Your crew is rested and ready. The ox is strong. You feel confident.'
+    : s.crew === 'tired' ? 'Your crew is tired. The ox is slowing. You need rest soon.'
+    : 'Your crew is exhausted. The ox can barely walk. You must rest immediately or risk collapse.';
+  document.getElementById('crew-status').innerHTML = `<p>${desc}</p>`;
+  document.getElementById('crew-modifier').textContent = `Modifier to checks: ${s.crew === 'rested' ? '+1' : s.crew === 'tired' ? '+0' : '-2'}`;
+  document.getElementById('crew-overlay').classList.add('active');
+}
 
-  // Reached end?
-  if (S.node >= NODES.length-1) {
-    S.over = true;
-    const hasTrade = cart.some(i=>i.type==='trade' && i.count>0);
-    S.won = hasTrade && S.wear < 4;
-    showEnd();
-    return;
+// ── End screen ──────────────────────────────────────────────────
+function showEndScreen() {
+  const s = game.stateSummary();
+  const cart = game.getCart();
+  const tradeGoods = cart.filter(i => i.type === 'trade' && i.count > 0);
+  const tgCount = tradeGoods.reduce((sum, i) => sum + i.count, 0);
+
+  document.getElementById('end-title').textContent = s.won ? 'You Made It!' : 'Journey Over';
+
+  const narrative = game.getNarrative();
+  const lastNarrative = narrative[narrative.length - 1] || '';
+  document.getElementById('end-narrative').innerHTML = '<p>' + lastNarrative.replace(/\n\n/g, '</p><p>') + '</p>';
+
+  document.getElementById('end-stats').innerHTML = `
+    <div class="stat-row"><span class="label">Days on trail</span><span>${s.day}</span></div>
+    <div class="stat-row"><span class="label">Food remaining</span><span>${s.food}</span></div>
+    <div class="stat-row"><span class="label">Cart wear</span><span>${s.wear} / 4</span></div>
+    <div class="stat-row"><span class="label">Trade goods delivered</span><span>${tgCount}</span></div>
+    <div class="stat-row score-row"><span class="label">Score</span><span>${s.score}</span></div>
+  `;
+
+  document.getElementById('end-overlay').classList.add('active');
+}
+
+// ── Check which overlay to show ─────────────────────────────────
+function checkOverlays() {
+  if (game.isOver()) { showEndScreen(); return; }
+  if (game.hasPendingEvent()) { presentEvent(); return; }
+  const s = game.stateSummary();
+  if (s.pendingSettlement) { presentSettlement(); return; }
+}
+
+// ── Main action handler ─────────────────────────────────────────
+function doAction(action) {
+  if (game.isOver()) return;
+  if (action === 'travel') {
+    if (game.getAvailableActions().type !== 'travel') return;
+    game.travelOneDay();
+  } else if (action === 'camp') {
+    if (game.getAvailableActions().type !== 'travel') return;
+    game.makeCamp();
   }
-
-  S.food--;
-  const ev = pickEvent();
-
-  if (ev) {
-    say(`<div class="day-header">Day ${S.day} — On the trail</div>
-      <div class="scene-text">You head west toward ${NODES[S.node+1].name}. The trail stretches ahead...</div>`);
-    setTimeout(()=>presentEvent(ev), 600);
-    return;
-  }
-
-  // No event — just travel
-  S.node++;
-  updateMarkers();
-  const n = NODES[S.node];
-  S.day++;
-  advanceMonth();
-
-  let html = `<div class="day-header">Day ${S.day} — ${n.name}</div>
-    <div class="scene-text">${terrainDesc(n.terrain)}</div>
-    <div class="scene-text" style="font-style:italic;color:#8b6914">${n.desc}</div>`;
-
-  if (n.type !== 'river') html += settlementButtons(n);
-  say(html);
+  showNarrative();
   updateStatus();
-  checkGameOver();
+  updateMap();
+  checkOverlays();
 }
 
-function settlementButtons(n) {
-  let h = '<div class="choices">';
-  if (n.type==='hbc') {
-    h += `<button class="choice-btn" onclick="settlementAct('trade')">Trade at the Company store</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('repair')">Repair cart (Workshop, -2 Wear)</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('rest')">Rest (2 MB)</button>`;
-  } else if (n.type==='metis') {
-    h += `<button class="choice-btn" onclick="settlementAct('trade')">Trade with the community</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('rest')">Rest with family (free)</button>`;
-  } else if (n.type==='trading') {
-    h += `<button class="choice-btn" onclick="settlementAct('trade')">Trade at the post</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('rest')">Rest (1 MB)</button>`;
-  } else if (n.type==='mission') {
-    h += `<button class="choice-btn" onclick="settlementAct('rest')">Rest at the Mission (free)</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('heal')">Seek healing (free)</button>`;
-  } else if (n.type==='nwmp') {
-    h += `<button class="choice-btn" onclick="settlementAct('trade')">Visit the canteen</button>`;
-    h += `<button class="choice-btn" onclick="settlementAct('rest')">Rest (1 MB)</button>`;
-  }
-  h += `<button class="choice-btn" onclick="settlementAct('continue')">Continue west →</button>`;
-  h += '</div>';
-  return h;
-}
+// ── Button handlers ─────────────────────────────────────────────
+document.getElementById('btn-travel').onclick = () => doAction('travel');
+document.getElementById('btn-camp').onclick = () => doAction('camp');
+document.getElementById('btn-cart').onclick = () => showCart();
+document.getElementById('btn-crew').onclick = () => showCrew();
 
-function settlementAct(action) {
-  if (action==='continue') {
-    say('<div class="scene-text">You pack up and head west. The trail awaits.</div>');
-    return;
-  }
-  if (action==='rest') {
-    S.crew = 'rested';
-    if (S.food < 20) S.food += 2;
-    say('<div class="scene-text">You rest. The crew recovers. Food resupplied.</div>');
-  }
-  if (action==='repair' && S.wear>0) {
-    S.wear = Math.max(0, S.wear-2);
-    say(`<div class="scene-text">The workshop repairs your cart. Wear reduced to ${S.wear}.</div>`);
-  }
-  if (action==='heal') {
-    S.crew = 'rested';
-    say('<div class="scene-text">The nuns tend to your crew. Hot soup, clean bandages. You feel renewed.</div>');
-  }
-  if (action==='trade') {
-    // Simple trade: swap 1 trade good for 3 food
-    const tg = cart.find(i=>i.type==='trade' && i.count>0);
-    if (tg) {
-      tg.count--;
-      S.food += 3;
-      say(`<div class="scene-text">You trade a ${tg.name} for supplies. +3 Food.</div>`);
-    } else {
-      say('<div class="scene-text">You browse the goods, but have nothing to trade.</div>');
-    }
-  }
+document.getElementById('cart-close-btn').onclick = () => { document.getElementById('cart-overlay').classList.remove('active'); };
+document.getElementById('crew-close-btn').onclick = () => { document.getElementById('crew-overlay').classList.remove('active'); };
+document.getElementById('settlement-close').onclick = () => { document.getElementById('settlement-overlay').classList.remove('active'); };
+
+document.getElementById('intro-start').onclick = () => {
+  document.getElementById('intro-overlay').classList.remove('active');
+  game = createGame();
+  showNarrative();
   updateStatus();
-}
+};
 
-// ============================================================
-// CAMP
-// ============================================================
-function makeCamp() {
-  S.food--;
-  if (S.crew==='exhausted') S.crew = 'tired';
-  else if (S.crew==='tired') S.crew = 'rested';
-
-  const hasTools = cart.some(i=>i.name==='Tool Kit' && i.count>0);
-  const hasShag = cart.some(i=>i.name==='Shaganappi' && i.count>0);
-
-  if (hasTools && hasShag && S.wear>0) {
-    const sh = cart.find(i=>i.name==='Shaganappi');
-    sh.count--;
-    S.wear--;
-    say(`<div class="day-header">Camp — Day ${S.day}</div>
-      <div class="scene-text">You make camp and repair the cart. Shaganappi strips tighten the joints. Wear reduced to ${S.wear}.</div>`);
-  } else {
-    say(`<div class="day-header">Camp — Day ${S.day}</div>
-      <div class="scene-text">You make camp as the sun sets. The ox grazes. Crew: ${S.crew}. Food: ${S.food}.</div>`);
-  }
-
-  S.day++;
-  advanceMonth();
+document.getElementById('end-restart').onclick = () => {
+  hideAllOverlays();
+  game = createGame();
+  showNarrative();
   updateStatus();
-  checkGameOver();
-}
+  updateMap();
+};
 
-// ============================================================
-// FAST FORWARD
-// ============================================================
-let fastInterval = null;
-
-function toggleFast() {
-  const btn = document.getElementById('btn-fast');
-  if (fastInterval) {
-    clearInterval(fastInterval);
-    fastInterval = null;
-    btn.textContent = 'Fast Forward';
-    btn.style.background = '#6d5310';
-  } else {
-    btn.textContent = 'Stop';
-    btn.style.background = '#c0392b';
-    fastInterval = setInterval(() => {
-      if (S.over) { toggleFast(); return; }
-      // If event overlay is open, can\'t auto-proceed
-      if (document.getElementById('event-overlay').style.display==='flex') return;
-      if (document.getElementById('inv-overlay').style.display==='flex') return;
-      if (document.getElementById('crew-overlay').style.display==='flex') return;
-      proceed();
-    }, 400);
-  }
-}
-
-// ============================================================
-// GAME OVER
-// ============================================================
-function checkGameOver() {
-  if (S.over) return;
-  if (S.food <= 0) {
-    S.over = true;
-    say(`<div class="scene-text"><strong>You have run out of food.</strong><br><br>
-      The trail stretches ahead, but your crew cannot go on. Weak, you make camp
-      and fire smoke signals. Whether anyone comes in time is another story.<br><br>
-      <em>— Game Over —</em></div>`);
-  }
-  if (S.wear >= 4) {
-    S.over = true;
-    say(`<div class="scene-text"><strong>The cart breaks down completely.</strong><br><br>
-      The axle snaps. The wheel collapses. You stand on the prairie with your
-      supplies scattered. Fort Edmonton is still days away.<br><br>
-      <em>— Game Over —</em></div>`);
-  }
-  if (S.month >= 11 && S.node < NODES.length-1) {
-    S.over = true;
-    say(`<div class="scene-text"><strong>Winter has come.</strong><br><br>
-      The first snow falls on the prairie. The trail disappears under white.
-      You are ${NODES.length-1-S.node} nodes from Fort Edmonton. The journey
-      will have to wait until spring.<br><br>
-      <em>— Game Over —</em></div>`);
-  }
-}
-
-function showEnd() {
-  const tg = cart.filter(i=>i.type==='trade' && i.count>0);
-  const tgCount = tg.reduce((s,i)=>s+i.count,0);
-  if (S.won) {
-    say(`<div class="day-header">FORT EDMONTON — Day ${S.day}</div>
-      <div class="scene-text"><strong>You made it.</strong><br><br>
-      The palisade walls of Fort Edmonton rise before you. The cart — battered,
-      worn, but holding — creaks through the gate. You have ${tgCount} trade goods.<br><br>
-      The Factor looks at your cart, at you, and nods. "Long journey?"<br><br>
-      <em>— You have completed the Cart Trail —</em><br>
-      Days: ${S.day} | Wear: ${S.wear} | Food: ${S.food}</div>`);
-  } else {
-    say(`<div class="day-header">FORT EDMONTON — Day ${S.day}</div>
-      <div class="scene-text">You arrive at Fort Edmonton, but you have no trade goods
-      to sell. The journey was survival, not profit.<br><br>
-      <em>— Journey Complete (No Trade Goods) —</em></div>`);
-  }
-}
-
-// ============================================================
-// BUTTONS
-// ============================================================
-document.getElementById('btn-proceed').onclick = proceed;
-document.getElementById('btn-cart').onclick = showInv;
-document.getElementById('btn-crew').onclick = showCrew;
-document.getElementById('btn-camp').onclick = makeCamp;
-document.getElementById('btn-fast').onclick = toggleFast;
-document.getElementById('inv-close').onclick = hideInv;
-document.getElementById('crew-close').onclick = hideCrew;
-
-// ============================================================
-// INIT
-// ============================================================
+// ── Init ────────────────────────────────────────────────────────
+// Game starts after intro screen
 updateStatus();
-say(`<div class="day-header">Day 1 — June 15 — Fort Garry</div>
-  <div class="scene-text">The Red River Settlement bustles behind you. Your cart is loaded,
-  your ox is ready. The Carlton Trail stretches west toward Fort Edmonton.
-  Five hundred and sixty-seven miles. You have until November.</div>
-  <div class="scene-text" style="font-style:italic;color:#8b6914">
-  Pack your cart wisely. The prairie is unforgiving.</div>`);
 </script>
 </body>
 </html>
