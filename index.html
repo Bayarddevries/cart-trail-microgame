@@ -8,29 +8,30 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Alegreya:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --clr-bg: #F0EBE0;
-      --clr-bg-dark: #E0D8C8;
-      --clr-text: #2A2018;
-      --clr-heading: #3B1810;
-      --clr-accent: #6B3A2A;
-      --clr-border: #B8A890;
-      --clr-status-bg: #3B1810;
-      --clr-status-text: #F0EBE0;
-      --clr-status-accent: #C4A882;
-      --clr-overlay-bg: rgba(59, 24, 16, 0.92);
-      --clr-card-bg: #F0EBE0;
-      --clr-btn-bg: #3B1810;
-      --clr-btn-text: #F0EBE0;
-      --clr-btn-hover: #4E2A1E;
-      --clr-narrative-bg: #E8E0D0;
-      --font-heading: 'MedievalSharp', cursive;
-      --font-body: 'IM Fell English', serif;
-      --font-narrative: 'IM Fell English', serif;
+      --clr-bg: #E8DCC8;
+      --clr-bg-dark: #D6C8A8;
+      --clr-text: #1A1410;
+      --clr-heading: #1A1410;
+      --clr-accent: #8B2500;
+      --clr-accent2: #4A6741;
+      --clr-border: #B8A478;
+      --clr-border-dark: #8B7355;
+      --clr-status-bg: #1A1410;
+      --clr-status-text: #E8DCC8;
+      --clr-status-accent: #C8B888;
+      --clr-overlay-bg: rgba(26,20,16,0.93);
+      --clr-card-bg: #E8DCC8;
+      --clr-btn-bg: #1A1410;
+      --clr-btn-text: #E8DCC8;
+      --clr-btn-hover: #2E2418;
+      --font-heading: 'Rye', serif;
+      --font-body: 'Alegreya', serif;
+      --font-narrative: 'Alegreya', serif;
     }
 
     body {
@@ -141,7 +142,7 @@
     }
     .ctrl-btn {
       padding: 6px 16px;
-      background: var(--clr-heading);
+      background: var(--clr-text);
       color: var(--clr-bg);
       border: none;
       border-radius: 6px;
@@ -183,7 +184,7 @@
     }
     .overlay-card h2 {
       font-family: var(--font-heading);
-      color: var(--clr-heading);
+      color: var(--clr-text);
       margin-bottom: 10px;
       font-size: 20px;
       font-weight: 600;
@@ -219,7 +220,7 @@
     .intro-card h1 {
       font-family: var(--font-heading);
       font-size: 32px;
-      color: var(--clr-heading);
+      color: var(--clr-text);
       margin-bottom: 4px;
       font-weight: 700;
     }
@@ -246,10 +247,10 @@
       border-radius: 6px;
       padding: 12px;
     }
-    .intro-card .tutorial-text strong { color: var(--clr-heading); }
+    .intro-card .tutorial-text strong { color: var(--clr-text); }
     .intro-card .start-btn {
       padding: 10px 32px;
-      background: var(--clr-heading);
+      background: var(--clr-text);
       color: var(--clr-bg);
       border: none;
       border-radius: 6px;
@@ -281,7 +282,7 @@
       line-height: 1.6;
       margin-bottom: 14px;
       font-style: italic;
-      color: var(--clr-heading);
+      color: var(--clr-text);
     }
     .settlement-actions {
       display: flex;
@@ -298,7 +299,7 @@
     .event-art {
       width: 100%;
       height: 80px;
-      background: linear-gradient(135deg, #D4C4A0, #C4B490);
+      background: linear-gradient(135deg, #D8CCB0, #C8B89A);
       border-radius: 4px;
       margin-bottom: 12px;
       display: flex;
@@ -349,7 +350,7 @@
     }
     .weight-fill {
       height: 100%;
-      background: var(--clr-heading);
+      background: var(--clr-text);
       transition: width 0.3s;
       border-radius: 3px;
     }
@@ -365,7 +366,7 @@
     .crew-modifier {
       font-family: var(--font-heading);
       font-size: 12px;
-      color: var(--clr-heading);
+      color: var(--clr-text);
       font-weight: 600;
     }
 
@@ -375,7 +376,7 @@
     .end-card h1 {
       font-family: var(--font-heading);
       font-size: 28px;
-      color: var(--clr-heading);
+      color: var(--clr-text);
       margin-bottom: 10px;
       font-weight: 700;
     }
@@ -399,19 +400,19 @@
       padding: 3px 0;
       font-size: 13px;
     }
-    .end-stats .stat-row .label { color: var(--clr-heading); font-weight: 600; }
+    .end-stats .stat-row .label { color: var(--clr-text); font-weight: 600; }
     .end-stats .score-row {
       border-top: 2px solid var(--clr-accent);
       margin-top: 6px;
       padding-top: 8px;
       font-size: 18px;
       font-weight: 700;
-      color: var(--clr-heading);
+      color: var(--clr-text);
       font-family: var(--font-heading);
     }
     .end-card .restart-btn {
       padding: 10px 32px;
-      background: var(--clr-heading);
+      background: var(--clr-text);
       color: var(--clr-bg);
       border: none;
       border-radius: 6px;
@@ -450,7 +451,7 @@
     .leaflet-tooltip {
       background: var(--clr-bg);
       border: 1px solid var(--clr-accent);
-      color: var(--clr-heading);
+      color: var(--clr-text);
       font-family: var(--font-body);
       font-size: 11px;
       padding: 2px 6px;
@@ -973,8 +974,8 @@ let map = null, trailLine = null, markers = null, playerMarker = null;
 const cartIcon = L.divIcon({
   className: 'cart-marker',
   html: `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="20" cy="20" r="18" fill="#3B1810" stroke="#6B3A2A" stroke-width="2"/>
-    <g transform="translate(8,10)" fill="none" stroke="#F0EBE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="20" cy="20" r="18" fill="#1A1410" stroke="#8B2500" stroke-width="2"/>
+    <g transform="translate(8,10)" fill="none" stroke="#E8DCC8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <!-- Cart body -->
       <path d="M4 12 L20 12 L20 4 L12 0 L4 4 Z"/>
       <!-- Wheellines -->
@@ -998,10 +999,10 @@ function initMap() {
   if (map) return;
   map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
-  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#6B3A2A', weight: 3, opacity: 0.6, dashArray: '8,4' }).addTo(map);
+  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8B7355', weight: 3, opacity: 0.6, dashArray: '8,4' }).addTo(map);
   markers = NODES.map((n, i) => {
     const m = L.circleMarker([n.lat, n.lon], {
-      radius: 4, fillColor: '#B8A890', color: '#6B3A2A', weight: 1.5, fillOpacity: 0.7
+      radius: 4, fillColor: '#B8A478', color: '#8B7355', weight: 1.5, fillOpacity: 0.7
     }).addTo(map);
     m.bindTooltip(n.name, { permanent: false, direction: 'top' });
     return m;
@@ -1020,9 +1021,9 @@ function updateMap() {
   playerMarker.setLatLng([node.lat, node.lon]);
   // Dim past nodes, highlight current
   markers.forEach((m, i) => {
-    if (i === s.node) { m.setRadius(6); m.setStyle({ fillColor: '#6B3A2A', fillOpacity: 1, stroke: '#3B1810', weight: 2 }); }
-    else if (i < s.node) { m.setRadius(4); m.setStyle({ fillColor: '#8a7a6a', fillOpacity: 0.4, stroke: '#B8A890', weight: 1 }); }
-    else { m.setRadius(4); m.setStyle({ fillColor: '#B8A890', fillOpacity: 0.7, stroke: '#6B3A2A', weight: 1.5 }); }
+    if (i === s.node) { m.setRadius(6); m.setStyle({ fillColor: '#8B2500', fillOpacity: 1, stroke: '#1A1410', weight: 2 }); }
+    else if (i < s.node) { m.setRadius(4); m.setStyle({ fillColor: '#9A8A7A', fillOpacity: 0.4, stroke: '#B8A478', weight: 1 }); }
+    else { m.setRadius(4); m.setStyle({ fillColor: '#B8A478', fillOpacity: 0.7, stroke: '#8B7355', weight: 1.5 }); }
   });
 }
 
