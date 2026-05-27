@@ -1120,11 +1120,13 @@ document.getElementById('settlement-close').onclick = () => { document.getElemen
 
 document.getElementById('intro-start').onclick = () => {
   document.getElementById('intro-overlay').classList.remove('active');
-  initMap();
-  game = createGame();
-  showNarrative();
-  updateStatus();
-  setTimeout(() => map.invalidateSize(), 50);
+  setTimeout(() => {
+    initMap();
+    game = createGame();
+    showNarrative();
+    updateStatus();
+    requestAnimationFrame(() => map.invalidateSize());
+  }, 100);
 };
 
 document.getElementById('end-restart').onclick = () => {
@@ -1133,7 +1135,7 @@ document.getElementById('end-restart').onclick = () => {
   showNarrative();
   updateStatus();
   updateMap();
-  setTimeout(() => map.invalidateSize(), 50);
+  requestAnimationFrame(() => map.invalidateSize());
 };
 
 // ── Init ────────────────────────────────────────────────────────
