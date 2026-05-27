@@ -3,316 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart Trail — Theme Preview</title>
+<title>Cart Trail — Western Theme Options</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&family=MedievalSharp&family=Pirata+One&family=Spectral:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Smokum&family=Buenard:wght@400;500;700&family=Alegreya:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #1a1a1a; font-family: system-ui, sans-serif; color: #ccc; padding: 24px; }
-  h1 { text-align: center; color: #eee; font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; }
-  .subtitle { text-align: center; font-size: 12px; color: #888; margin-bottom: 32px; }
-  .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1200px; margin: 0 auto; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #111; font-family: system-ui, sans-serif; color: #aaa; padding: 32px 28px; }
+h1 { text-align: center; color: #ddd; font-size: 18px; margin-bottom: 6px; letter-spacing: 3px; text-transform: uppercase; }
+.subtitle { text-align: center; font-size: 13px; color: #777; margin-bottom: 36px; line-height: 1.5; }
 
-  .theme-preview {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #333;
-  }
+.themes { display: flex; flex-direction: column; gap: 28px; max-width: 720px; margin: 0 auto; }
 
-  /* ═══════════════════════════════════════════ */
-  /* THEME A — Parchment & Quill */
-  /* ═══════════════════════════════════════════ */
-  .theme-a {
-    --bg: #F5E6C8;
-    --bg-dark: #E8D4A8;
-    --text: #3B2A1A;
-    --heading: #5C3D1E;
-    --accent: #8B4513;
-    --border: #C4A06A;
-    --status-bg: #3B2A1A;
-    --status-text: #F5E6C8;
-    --status-accent: #C4A06A;
-    --overlay-bg: rgba(59, 42, 26, 0.92);
-    --card-bg: #F5E6C8;
-    --btn-bg: #5C3D1E;
-    --btn-text: #F5E6C8;
-    --font-heading: 'Cinzel', serif;
-    --font-body: 'Cormorant Garamond', serif;
-    --font-narrative: 'IM Fell English', serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 0;
-  }
-  .theme-a .status-bar { background: var(--status-bg); color: var(--status-text); padding: 8px 16px; font-family: var(--font-heading); font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--accent); }
-  .theme-a .status-bar .label { color: var(--status-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 9px; }
-  .theme-a .map-area { height: 120px; background: linear-gradient(180deg, #D4C4A0 0%, #C8B88A 40%, #BFA870 100%); position: relative; }
-  .theme-a .map-area::after { content: '🗺️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 32px; opacity: 0.3; }
-  .theme-a .narrative { padding: 12px 16px; font-family: var(--font-narrative); font-size: 13px; line-height: 1.65; height: 80px; overflow: hidden; border-top: 1px solid var(--border); }
-  .theme-a .narrative .day { font-family: var(--font-heading); font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 4px; }
-  .theme-a .controls { display: flex; gap: 4px; padding: 8px 12px; background: var(--bg-dark); border-top: 1px solid var(--border); }
-  .theme-a .btn { padding: 5px 12px; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 3px; font-family: var(--font-heading); font-size: 10px; cursor: pointer; }
-  .theme-a .overlay-demo { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; }
-  .theme-a .overlay-card { background: var(--card-bg); border: 2px solid var(--accent); border-radius: 6px; padding: 18px; max-width: 320px; width: 90%; }
-  .theme-a .overlay-card h2 { font-family: var(--font-heading); color: var(--heading); font-size: 16px; margin-bottom: 6px; }
-  .theme-a .overlay-card p { font-family: var(--font-narrative); font-size: 12px; line-height: 1.6; font-style: italic; }
+.theme-card { border-radius: 6px; overflow: hidden; border: 1px solid #333; }
 
-  /* ═══════════════════════════════════════════ */
-  /* THEME B — Frontier Letterpress */
-  /* ═══════════════════════════════════════════ */
-  .theme-b {
-    --bg: #E8E0D0;
-    --bg-dark: #D6CCB8;
-    --text: #1C1C1C;
-    --heading: #1C1C1C;
-    --accent: #8B0000;
-    --border: #999;
-    --status-bg: #1C1C1C;
-    --status-text: #E8E0D0;
-    --status-accent: #C0C0C0;
-    --overlay-bg: rgba(28, 28, 28, 0.92);
-    --card-bg: #E8E0D0;
-    --btn-bg: #1C1C1C;
-    --btn-text: #E8E0D0;
-    --font-heading: 'Pirata One', cursive;
-    --font-body: 'Spectral', serif;
-    --font-narrative: 'Spectral', serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 0;
-  }
-  .theme-b .status-bar { background: var(--status-bg); color: var(--status-text); padding: 8px 16px; font-family: var(--font-heading); font-size: 12px; display: flex; justify-content: space-between; border-bottom: 3px double var(--accent); }
-  .theme-b .status-bar .label { color: var(--status-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 9px; font-family: var(--font-body); }
-  .theme-b .map-area { height: 120px; background: #C8B88A; position: relative; }
-  .theme-b .map-area::after { content: '🗺️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 32px; opacity: 0.3; }
-  .theme-b .narrative { padding: 12px 16px; font-family: var(--font-narrative); font-size: 13px; line-height: 1.6; height: 80px; overflow: hidden; border-top: 1px solid var(--border); }
-  .theme-b .narrative .day { font-family: var(--font-body); font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 4px; font-weight: 600; }
-  .theme-b .controls { display: flex; gap: 4px; padding: 8px 12px; background: var(--bg-dark); border-top: 1px solid var(--border); }
-  .theme-b .btn { padding: 5px 12px; background: var(--btn-bg); color: var(--btn-text); border: 1px solid #444; border-radius: 2px; font-family: var(--font-body); font-size: 10px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; }
-  .theme-b .overlay-demo { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; }
-  .theme-b .overlay-card { background: var(--card-bg); border: 3px double #1C1C1C; border-radius: 2px; padding: 18px; max-width: 320px; width: 90%; }
-  .theme-b .overlay-card h2 { font-family: var(--font-heading); color: var(--heading); font-size: 20px; margin-bottom: 6px; }
-  .theme-b .overlay-card p { font-family: var(--font-narrative); font-size: 12px; line-height: 1.6; }
+.game-mockup {
+  position: relative; height: 280px;
+  /* We'll set background per-theme */
+}
 
-  /* ═══════════════════════════════════════════ */
-  /* THEME C — Surveyor's Map */
-  /* ═══════════════════════════════════════════ */
-  .theme-c {
-    --bg: #FAF8F0;
-    --bg-dark: #EDE8D8;
-    --text: #2C2C2C;
-    --heading: #1A3A5C;
-    --accent: #B8860B;
-    --border: #B8860B;
-    --status-bg: #1A3A5C;
-    --status-text: #FAF8F0;
-    --status-accent: #B8860B;
-    --overlay-bg: rgba(26, 58, 92, 0.92);
-    --card-bg: #FAF8F0;
-    --btn-bg: #1A3A5C;
-    --btn-text: #FAF8F0;
-    --font-heading: 'EB Garamond', serif;
-    --font-body: 'EB Garamond', serif;
-    --font-narrative: 'EB Garamond', serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 0;
-  }
-  .theme-c .status-bar { background: var(--status-bg); color: var(--status-text); padding: 8px 16px; font-family: var(--font-heading); font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--accent); }
-  .theme-c .status-bar .label { color: var(--status-accent); text-transform: uppercase; letter-spacing: 1.5px; font-size: 9px; font-weight: 600; }
-  .theme-c .map-area { height: 120px; background: linear-gradient(180deg, #E8E0C8 0%, #D8D0B8 50%, #C8C0A0 100%); position: relative; }
-  .theme-c .map-area::after { content: '🗺️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 32px; opacity: 0.3; }
-  .theme-c .narrative { padding: 12px 16px; font-family: var(--font-narrative); font-size: 13px; line-height: 1.65; height: 80px; overflow: hidden; border-top: 1px solid var(--border); }
-  .theme-c .narrative .day { font-family: var(--font-heading); font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--heading); margin-bottom: 4px; font-weight: 600; }
-  .theme-c .controls { display: flex; gap: 4px; padding: 8px 12px; background: var(--bg-dark); border-top: 1px solid var(--border); }
-  .theme-c .btn { padding: 5px 14px; background: var(--btn-bg); color: var(--btn-text); border: 1px solid #2A5A8C; border-radius: 3px; font-family: var(--font-heading); font-size: 11px; font-weight: 600; cursor: pointer; }
-  .theme-c .overlay-demo { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; }
-  .theme-c .overlay-card { background: var(--card-bg); border: 1px solid var(--accent); border-radius: 4px; padding: 18px; max-width: 320px; width: 90%; }
-  .theme-c .overlay-card h2 { font-family: var(--font-heading); color: var(--heading); font-size: 18px; margin-bottom: 6px; font-weight: 600; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
-  .theme-c .overlay-card p { font-family: var(--font-narrative); font-size: 12px; line-height: 1.6; }
+/* Shared mockup layout */
+.status-bar { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+.stat-group { display: flex; align-items: center; gap: 12px; }
 
-  /* ═══════════════════════════════════════════ */
-  /* THEME D — HBC Trade Ledger */
-  /* ═══════════════════════════════════════════ */
-  .theme-d {
-    --bg: #F0EBE0;
-    --bg-dark: #E0D8C8;
-    --text: #2A2018;
-    --heading: #3B1810;
-    --accent: #6B3A2A;
-    --border: #B8A890;
-    --status-bg: #3B1810;
-    --status-text: #F0EBE0;
-    --status-accent: #C4A882;
-    --overlay-bg: rgba(59, 24, 16, 0.92);
-    --card-bg: #F0EBE0;
-    --btn-bg: #3B1810;
-    --btn-text: #F0EBE0;
-    --font-heading: 'MedievalSharp', cursive;
-    --font-body: 'IM Fell English', serif;
-    --font-narrative: 'IM Fell English', serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 0;
-  }
-  .theme-d .status-bar { background: var(--status-bg); color: var(--status-text); padding: 8px 16px; font-family: var(--font-heading); font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--accent); }
-  .theme-d .status-bar .label { color: var(--status-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 9px; font-family: var(--font-body); }
-  .theme-d .map-area { height: 120px; background: #D8CCB0; position: relative; }
-  .theme-d .map-area::after { content: '🗺️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 32px; opacity: 0.3; }
-  .theme-d .narrative { padding: 12px 16px; font-family: var(--font-narrative); font-size: 13px; line-height: 1.65; height: 80px; overflow: hidden; border-top: 1px solid var(--border); }
-  .theme-d .narrative .day { font-family: var(--font-heading); font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 4px; }
-  .theme-d .controls { display: flex; gap: 4px; padding: 8px 12px; background: var(--bg-dark); border-top: 1px solid var(--border); }
-  .theme-d .btn { padding: 5px 12px; background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--accent); border-radius: 3px; font-family: var(--font-heading); font-size: 10px; cursor: pointer; }
-  .theme-d .overlay-demo { position: absolute; inset: 0; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; }
-  .theme-d .overlay-card { background: var(--card-bg); border: 2px solid var(--accent); border-radius: 4px; padding: 18px; max-width: 320px; width: 90%; }
-  .theme-d .overlay-card h2 { font-family: var(--font-heading); color: var(--heading); font-size: 17px; margin-bottom: 6px; }
-  .theme-d .overlay-card p { font-family: var(--font-narrative); font-size: 12px; line-height: 1.65; font-style: italic; }
+.map-area { height: 100px; position: relative; }
+.map-area::after { content: ''; position: absolute; inset: 0; }
 
-  /* Shared layout */
-  .game-mockup { position: relative; height: 280px; border-radius: 6px; overflow: hidden; }
-  .theme-label { padding: 10px 14px; font-size: 11px; color: #888; }
-  .theme-label strong { color: #ccc; font-size: 12px; }
-  .theme-label .fonts { color: #666; font-size: 10px; margin-top: 2px; }
+.narrative { padding: 12px 16px; height: 82px; overflow: hidden; font-size: 13px; line-height: 1.6; }
+.narrative .day { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+
+.controls { display: flex; gap: 5px; padding: 8px 14px; }
+.btn { padding: 6px 14px; border: none; border-radius: 3px; font-size: 11px; cursor: pointer; letter-spacing: 0.3px; }
+
+.overlay-demo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.overlay-card { border-radius: 4px; padding: 22px; max-width: 360px; width: 90%; }
+.overlay-card h2 { font-size: 20px; margin-bottom: 8px; border-bottom: 1px solid; padding-bottom: 5px; }
+.overlay-card p { font-size: 13px; line-height: 1.6; font-style: italic; }
+
+/* ═══ W1 — Rye ═══ */
+.w1-mock { background: #E8DCC8; }
+.w1-mock .status-bar { background: #1A1410; color: #C8B888; }
+.w1-mock .stat-label { color: #8B7355; }
+.w1-mock .map-area { background: linear-gradient(180deg, #D4C8A0 0%, #C0A870 50%, #A89058 100%); border-bottom: 2px solid #8B7355; }
+.w1-mock .narrative { color: #1A1410; font-family: 'Alegreya', serif; }
+.w1-mock .narrative .day { color: #8B2500; font-family: 'Rye', serif; }
+.w1-mock .controls { background: #D6C8A8; border-top: 1px solid #B8A478; }
+.w1-mock .btn { background: #1A1410; color: #E8DCC8; border: 1px solid #8B7355; font-family: 'Rye', serif; font-size: 10px; }
+.w1-mock .btn:hover { background: #2E2418; }
+.w1-mock .overlay-demo { background: rgba(26,20,16,0.92); }
+.w1-mock .overlay-card { background: #E8DCC8; border: 2px solid #8B7355; }
+.w1-mock .overlay-card h2 { font-family: 'Rye', serif; color: #1A1410; border-color: #8B2500; }
+.w1-mock .overlay-card p { font-family: 'Alegreya', serif; color: #1A1410; }
+
+/* ═══ W2 — Smokum ═══ */
+.w2-mock { background: #F0E8D8; }
+.w2-mock .status-bar { background: #2A2018; color: #C8B890; }
+.w2-mock .stat-label { color: #8B7860; }
+.w2-mock .map-area { background: linear-gradient(180deg, #D0C4A4 0%, #BDB088 50%, #A89870 100%); border-bottom: 2px solid #8B6914; }
+.w2-mock .narrative { color: #1A1410; font-family: 'Alegreya', serif; }
+.w2-mock .narrative .day { color: #6B4423; font-family: 'Smokum', cursive; font-size: 11px; }
+.w2-mock .controls { background: #DDD2BC; border-top: 1px solid #B8A888; }
+.w2-mock .btn { background: #6B4423; color: #F0E8D8; border: 1px solid #8B6914; font-family: 'Smokum', cursive; font-size: 11px; }
+.w2-mock .btn:hover { background: #4E3018; }
+.w2-mock .overlay-demo { background: rgba(42,32,24,0.92); }
+.w2-mock .overlay-card { background: #F0E8D8; border: 3px double #6B4423; }
+.w2-mock .overlay-card h2 { font-family: 'Smokum', cursive; color: #1A1410; border-color: #6B4423; }
+.w2-mock .overlay-card p { font-family: 'Alegreya', serif; color: #1A1410; }
+
+/* ═══ W3 — Buenard ═══ */
+.w3-mock { background: #E4DCD0; }
+.w3-mock .status-bar { background: #3A2A1A; color: #BFA880; }
+.w3-mock .stat-label { color: #9A8468; }
+.w3-mock .map-area { background: linear-gradient(180deg, #D0C4A4 0%, #BAA87A 50%, #A09060 100%); border-bottom: 2px solid #7A6A54; }
+.w3-mock .narrative { color: #2A2218; font-family: 'Alegreya', serif; }
+.w3-mock .narrative .day { color: #8B5A2B; font-family: 'Buenard', serif; font-weight: 700; }
+.w3-mock .controls { background: #D0C4AA; border-top: 1px solid #B8A888; }
+.w3-mock .btn { background: #5A3A1A; color: #E4DCD0; border: 1px solid #7A6A54; font-family: 'Buenard', serif; font-weight: 700; font-size: 11px; }
+.w3-mock .btn:hover { background: #3E2810; }
+.w3-mock .overlay-demo { background: rgba(58,42,26,0.92); }
+.w3-mock .overlay-card { background: #E4DCD0; border: 2px solid #7A6A54; }
+.w3-mock .overlay-card h2 { font-family: 'Buenard', serif; color: #3A2A1A; border-color: #8B5A2B; font-weight: 700; }
+.w3-mock .overlay-card p { font-family: 'Alegreya', serif; color: #2A2218; }
+
+.theme-label { padding: 14px 16px; font-size: 12px; color: #999; background: #1a1a1a; line-height: 1.6; }
+.theme-label strong { color: #eee; font-size: 14px; display: block; margin-bottom: 4px; }
+.theme-label .tagline { color: #666; font-size: 11px; margin-top: 2px; }
+
+.desc-sample { margin-top: 12px; padding: 12px; background: #252525; border-radius: 4px; border-left: 3px solid #444; }
+.desc-sample .label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 6px; }
+.desc-sample p { font-family: 'Alegreya', serif; font-size: 13px; line-height: 1.65; color: #bbb; }
 </style>
 </head>
 <body>
 
-<h1>CART TRAIL — Theme Options</h1>
-<p class="subtitle">Four directions for the look and feel. Each shows: status bar, map area, narrative text, action buttons, and settlement overlay.</p>
+<h1>CART TRAIL — Western Themes</h1>
+<p class="subtitle">Late 1800s Red River era. Body font is <strong>Alegreya</strong> for all three. Choose a heading style.</p>
 
 <div class="themes">
 
-  <!-- THEME A -->
-  <div>
-    <div class="theme-preview theme-a">
-      <div class="game-mockup">
-        <div class="status-bar">
-          <div><span class="label">Day</span> 14 &nbsp;·&nbsp; <span class="label">Season</span> Summer</div>
-          <div><span class="label">Food</span> 12 &nbsp;·&nbsp; <span class="label">Wear</span> 1/4</div>
-        </div>
-        <div class="map-area"></div>
-        <div class="narrative">
-          <div class="day">Day 14 — Fort Ellice</div>
-          The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the prairie sky.
-        </div>
-        <div class="controls">
-          <div class="btn">Travel 1 Day</div>
-          <div class="btn">Make Camp</div>
-          <div class="btn">Cart</div>
-          <div class="btn">Crew</div>
-        </div>
-        <div class="overlay-demo">
-          <div class="overlay-card">
-            <h2>Fort Ellice</h2>
-            <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
-          </div>
-        </div>
+<!-- ═══ OPTION 1 — Rye ═══ -->
+<div class="theme-card">
+  <div class="game-mockup w1-mock">
+    <div class="status-bar">
+      <div class="stat-group">
+        <span class="stat-label">Day</span> 14 &nbsp;·&nbsp;
+        <span class="stat-label">Season</span> Summer
+      </div>
+      <div class="stat-group">
+        <span class="stat-label">Food</span> 12 &nbsp;·&nbsp;
+        <span class="stat-label">Wear</span> 1/4 &nbsp;·&nbsp;
+        <span class="stat-label">Crew</span> Rested
       </div>
     </div>
-    <div class="theme-label">
-      <strong>A — Parchment & Quill</strong>
-      <div class="fonts">Heading: Cinzel · Body: Cormorant Garamond · Narrative: IM Fell English</div>
+    <div class="map-area"></div>
+    <div class="narrative">
+      <div class="day">Day 14 — Fort Ellice</div>
+      The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the endless prairie sky.
+    </div>
+    <div class="controls">
+      <div class="btn">✦ Travel</div>
+      <div class="btn">✦ Camp</div>
+      <div class="btn">✦ Cart</div>
+      <div class="btn">✦ Crew</div>
+    </div>
+    <div class="overlay-demo">
+      <div class="overlay-card">
+        <h2>Fort Ellice</h2>
+        <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
+      </div>
     </div>
   </div>
+  <div class="theme-label">
+    <strong>1 — Rye</strong>
+    <div>Heading: <span style="font-family:'Rye',serif;color:#ddd;">Rye</span> · Body: <span style="font-family:'Alegreya',serif;color:#ddd;">Alegreya</span></div>
+    <div class="tagline">Wanted poster / saloon sign. Most obviously &ldquo;Western.&rdquo;</div>
+    <div class="desc-sample">
+      <div class="label">Settlement overlay text</div>
+      <p style="font-family:'Alegreya',serif;">Cathedral spires above the river landing. The Grey Nuns offer healing to all travellers. Free pottage and prayers.</p>
+    </div>
+  </div>
+</div>
 
-  <!-- THEME B -->
-  <div>
-    <div class="theme-preview theme-b">
-      <div class="game-mockup">
-        <div class="status-bar">
-          <div><span class="label">Day</span> 14 &nbsp;·&nbsp; <span class="label">Season</span> Summer</div>
-          <div><span class="label">Food</span> 12 &nbsp;·&nbsp; <span class="label">Wear</span> 1/4</div>
-        </div>
-        <div class="map-area"></div>
-        <div class="narrative">
-          <div class="day">Day 14 — Fort Ellice</div>
-          The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the prairie sky.
-        </div>
-        <div class="controls">
-          <div class="btn">Travel 1 Day</div>
-          <div class="btn">Make Camp</div>
-          <div class="btn">Cart</div>
-          <div class="btn">Crew</div>
-        </div>
-        <div class="overlay-demo">
-          <div class="overlay-card">
-            <h2>Fort Ellice</h2>
-            <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
-          </div>
-        </div>
+<!-- ═══ OPTION 2 — Smokum ═══ -->
+<div class="theme-card">
+  <div class="game-mockup w2-mock">
+    <div class="status-bar">
+      <div class="stat-group">
+        <span class="stat-label">Day</span> 14 &nbsp;·&nbsp;
+        <span class="stat-label">Season</span> Summer
+      </div>
+      <div class="stat-group">
+        <span class="stat-label">Food</span> 12 &nbsp;·&nbsp;
+        <span class="stat-label">Wear</span> 1/4 &nbsp;·&nbsp;
+        <span class="stat-label">Crew</span> Rested
       </div>
     </div>
-    <div class="theme-label">
-      <strong>B — Frontier Letterpress</strong>
-      <div class="fonts">Heading: Pirata One · Body + Narrative: Spectral</div>
+    <div class="map-area"></div>
+    <div class="narrative">
+      <div class="day">Day 14 — Fort Ellice</div>
+      The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the endless prairie sky.
+    </div>
+    <div class="controls">
+      <div class="btn">✦ Travel</div>
+      <div class="btn">✦ Camp</div>
+      <div class="btn">✦ Cart</div>
+      <div class="btn">✦ Crew</div>
+    </div>
+    <div class="overlay-demo">
+      <div class="overlay-card">
+        <h2>Fort Ellice</h2>
+        <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
+      </div>
     </div>
   </div>
+  <div class="theme-label">
+    <strong>2 — Smokum</strong>
+    <div>Heading: <span style="font-family:'Smokum',cursive;color:#ddd;">Smokum</span> · Body: <span style="font-family:'Alegreya',serif;color:#ddd;">Alegreya</span></div>
+    <div class="tagline">Carnival show card / ornamental Western serif. The age of steam reaching the frontier.</div>
+    <div class="desc-sample">
+      <div class="label">Settlement overlay text</div>
+      <p style="font-family:'Alegreya',serif;">Cathedral spires above the river landing. The Grey Nuns offer healing to all travellers. Free pottage and prayers.</p>
+    </div>
+  </div>
+</div>
 
-  <!-- THEME C -->
-  <div>
-    <div class="theme-preview theme-c">
-      <div class="game-mockup">
-        <div class="status-bar">
-          <div><span class="label">Day</span> 14 &nbsp;·&nbsp; <span class="label">Season</span> Summer</div>
-          <div><span class="label">Food</span> 12 &nbsp;·&nbsp; <span class="label">Wear</span> 1/4</div>
-        </div>
-        <div class="map-area"></div>
-        <div class="narrative">
-          <div class="day">Day 14 — Fort Ellice</div>
-          The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the prairie sky.
-        </div>
-        <div class="controls">
-          <div class="btn">Travel 1 Day</div>
-          <div class="btn">Make Camp</div>
-          <div class="btn">Cart</div>
-          <div class="btn">Crew</div>
-        </div>
-        <div class="overlay-demo">
-          <div class="overlay-card">
-            <h2>Fort Ellice</h2>
-            <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
-          </div>
-        </div>
+<!-- ═══ OPTION 3 — Buenard ═══ -->
+<div class="theme-card">
+  <div class="game-mockup w3-mock">
+    <div class="status-bar">
+      <div class="stat-group">
+        <span class="stat-label">Day</span> 14 &nbsp;·&nbsp;
+        <span class="stat-label">Season</span> Summer
+      </div>
+      <div class="stat-group">
+        <span class="stat-label">Food</span> 12 &nbsp;·&nbsp;
+        <span class="stat-label">Wear</span> 1/4 &nbsp;·&nbsp;
+        <span class="stat-label">Crew</span> Rested
       </div>
     </div>
-    <div class="theme-label">
-      <strong>C — Surveyor's Map</strong>
-      <div class="fonts">All text: EB Garamond (with navy + gold accents)</div>
+    <div class="map-area"></div>
+    <div class="narrative">
+      <div class="day">Day 14 — Fort Ellice</div>
+      The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the endless prairie sky.
     </div>
-  </div>
-
-  <!-- THEME D -->
-  <div>
-    <div class="theme-preview theme-d">
-      <div class="game-mockup">
-        <div class="status-bar">
-          <div><span class="label">Day</span> 14 &nbsp;·&nbsp; <span class="label">Season</span> Summer</div>
-          <div><span class="label">Food</span> 12 &nbsp;·&nbsp; <span class="label">Wear</span> 1/4</div>
-        </div>
-        <div class="map-area"></div>
-        <div class="narrative">
-          <div class="day">Day 14 — Fort Ellice</div>
-          The Assiniboine bends west here, and the trail follows. You can see the fort's palisade from a mile off — a dark rectangle against the prairie sky.
-        </div>
-        <div class="controls">
-          <div class="btn">Travel 1 Day</div>
-          <div class="btn">Make Camp</div>
-          <div class="btn">Cart</div>
-          <div class="btn">Crew</div>
-        </div>
-        <div class="overlay-demo">
-          <div class="overlay-card">
-            <h2>Fort Ellice</h2>
-            <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
-          </div>
-        </div>
+    <div class="controls">
+      <div class="btn">✦ Travel</div>
+      <div class="btn">✦ Camp</div>
+      <div class="btn">✦ Cart</div>
+      <div class="btn">✦ Crew</div>
+    </div>
+    <div class="overlay-demo">
+      <div class="overlay-card">
+        <h2>Fort Ellice</h2>
+        <p>Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills.</p>
       </div>
     </div>
-    <div class="theme-label">
-      <strong>D — HBC Trade Ledger</strong>
-      <div class="fonts">Heading: MedievalSharp · Body + Narrative: IM Fell English</div>
+  </div>
+  <div class="theme-label">
+    <strong>3 — Buenard</strong>
+    <div>Heading: <span style="font-family:'Buenard',serif;color:#ddd;">Buenard</span> · Body: <span style="font-family:'Alegreya',serif;color:#ddd;">Alegreya</span></div>
+    <div class="tagline">Weathered slab serif / stamped metal sign. Sun-bleached trail markers and post office lettering.</div>
+    <div class="desc-sample">
+      <div class="label">Settlement overlay text</div>
+      <p style="font-family:'Alegreya',serif;">Cathedral spires above the river landing. The Grey Nuns offer healing to all travellers. Free pottage and prayers.</p>
     </div>
   </div>
+</div>
 
 </div>
 
