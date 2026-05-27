@@ -2,18 +2,50 @@
 
 ## [Unreleased] — In Progress
 
-### Added
-- `DESIGN.md` — Full game design document (core concept, systems, UI, data architecture)
-- `PLAN.md` — 4-phase implementation plan with task checklists
-- `DATA.md` — Processed game data reference (nodes, items, events, rivers, settlements)
-- `IMPLEMENTATION.md` — Detailed implementation plan with code examples
+### Current State (2026-05-27)
 
-### Not Yet Started
-- `index.html` — Game codebase (Phase 1: Shell & Map)
+Game is fully playable single-file HTML with Leaflet map, event system, settlement overlays, cart/crew overlays, and end screen. Deployed to GitHub Pages. **Next priority: gameplay balance and event richness.**
+
+### Known Issues (from playtest)
+
+- **100% win rate** — game is too easy. Food too abundant, events too safe, wear never accumulates.
+- **Settlement rest is free** — +2 food + crew reset at every stop with no cost
+- **Events have no cascading consequences** — each resolves in one choice, no multi-day effects
+- **Travel has no wear risk** — carts don't degrade from use
+- **No settlement variety** — every node offers the same rest action
+
+See `docs/PLAYTEST.md` for full analysis and design recommendations.
 
 ---
 
 ## Design Decisions Log
+
+### 2026-05-27 — Playtesting Infrastructure
+
+- **Decision:** Automated playtest harness (`playtest.js`) runs N games with seeded RNG
+- **Rationale:** Balance changes need regression testing. Can't eyeball 200 games.
+- **Current AI:** Conservative (always picks lowest-DC choice, camps only when starving)
+- **Future:** Need Bold, Trader, Sprinter, Prepper, Random agent strategies
+
+### 2026-05-27 — Theme Selection
+
+- **Decision:** Rye (heading) + Alegreya (body) on cream/red/wood palette ("Frontier Post" / late 1800s Western)
+- **Rationale:** Wanted-poster feel for headings. Alegreya is a warm, readable serif with period character.
+- **Rejected:** MedievalSharp + IM Fell English (too medieval), Space Grotesk + DM Sans (too modern), Pirata One (too decorative), Buenard (too subtle)
+
+### 2026-05-27 — Engine Split
+
+- **Decision:** Engine code embedded in `index.html`, mirror kept in `src/engine.js`
+- **Rationale:** Single-file deployment. `src/engine.js` is the canonical copy for headless testing.
+- **Note:** Both copies must be kept in sync when engine changes are made.
+
+### 2026-05-27 — Travel System
+
+- **Decision:** 1 turn = 1 day, segments take multiple days (dist field on nodes)
+- **Rationale:** More granular than 1 turn = 1 node. Creates tension between pushing on and making camp.
+- **Event frequency:** 35% per travel day. Too low — should be 50%+ for excitement.
+
+---
 
 ### 2026-05-26 — Core Architecture
 - **Decision:** Single HTML file, no build step
