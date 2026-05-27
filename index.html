@@ -6,13 +6,28 @@
   <title>Cart Trail — A Métis Journey</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --clr-cream: #F4F1EA;
+      --clr-cream-dark: #E8DCC8;
+      --clr-forest: #2C4A1E;
+      --clr-brass: #A67C29;
+      --clr-brass-dark: #8B6914;
+      --clr-brown: #3D2B1F;
+      --clr-text: #2B1E14;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
     body {
-      font-family: Georgia, 'Times New Roman', serif;
-      color: #3d2b1f;
-      background: #f4e8d1;
+      font-family: var(--font-body);
+      color: var(--clr-text);
+      background: var(--clr-cream);
       overflow: hidden;
       height: 100vh;
     }
@@ -29,11 +44,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 6px 16px;
-      background: #3d2b1f;
-      color: #f4e8d1;
+      background: var(--clr-brown);
+      color: var(--clr-cream);
       font-size: 12px;
       flex-shrink: 0;
-      border-bottom: 2px solid #8b6914;
+      border-bottom: 2px solid var(--clr-brass-dark);
       white-space: nowrap;
       overflow: hidden;
     }
@@ -44,17 +59,18 @@
       gap: 4px;
     }
     #status-bar .stat-label {
-      color: #c4a96a;
+      color: var(--clr-brass);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-family: var(--font-heading);
     }
-    #status-bar .stat-value { font-weight: bold; }
+    #status-bar .stat-value { font-weight: 600; }
     #status-bar .segment-progress {
       flex: 1;
       text-align: center;
       font-size: 11px;
-      color: #c4a96a;
+      color: var(--clr-brass);
       padding: 0 12px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -81,8 +97,8 @@
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      border-top: 3px solid #8b6914;
-      background: #f4e8d1;
+      border-top: 3px solid var(--clr-brass-dark);
+      background: var(--clr-cream);
     }
 
     #narrative {
@@ -90,15 +106,16 @@
       padding: 10px 18px;
       overflow-y: auto;
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.6;
     }
     .day-header {
+      font-family: var(--font-heading);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: #8b6914;
+      color: var(--clr-brass-dark);
       margin-bottom: 4px;
-      font-weight: bold;
+      font-weight: 600;
     }
     .scene-text { margin-bottom: 5px; }
     .scene-text:last-child { margin-bottom: 0; }
@@ -108,22 +125,23 @@
       display: flex;
       padding: 6px 16px;
       gap: 5px;
-      border-top: 1px solid #c4a96a;
-      background: #ede0c8;
+      border-top: 1px solid var(--clr-brass);
+      background: var(--clr-cream-dark);
       flex-shrink: 0;
     }
     .ctrl-btn {
-      padding: 5px 14px;
-      background: #8b6914;
-      color: #f4e8d1;
+      padding: 6px 16px;
+      background: var(--clr-forest);
+      color: var(--clr-cream);
       border: none;
-      border-radius: 4px;
-      font-family: Georgia, serif;
+      border-radius: 6px;
+      font-family: var(--font-heading);
       font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
     }
-    .ctrl-btn:hover { background: #6d5310; }
-    .ctrl-btn:disabled { background: #b0a080; cursor: not-allowed; }
+    .ctrl-btn:hover { background: #1E3515; }
+    .ctrl-btn:disabled { background: #8a9a7a; cursor: not-allowed; }
     .ctrl-btn .key-hint {
       font-size: 9px;
       opacity: 0.7;
@@ -135,7 +153,7 @@
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(61, 43, 31, 0.92);
+      background: rgba(43, 30, 20, 0.92);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -143,55 +161,62 @@
     .overlay.active { display: flex; }
 
     .overlay-card {
-      background: #f4e8d1;
-      border: 3px solid #8b6914;
-      border-radius: 8px;
+      background: var(--clr-cream);
+      border: 2px solid var(--clr-brass);
+      border-radius: 10px;
       max-width: 580px;
       width: 92%;
       max-height: 85%;
       overflow-y: auto;
-      padding: 22px;
+      padding: 24px;
       position: relative;
     }
     .overlay-card h2 {
-      color: #8b6914;
+      font-family: var(--font-heading);
+      color: var(--clr-forest);
       margin-bottom: 10px;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 600;
     }
     .overlay-card h3 {
-      color: #8b6914;
+      font-family: var(--font-heading);
+      color: var(--clr-brass-dark);
       margin-bottom: 6px;
       font-size: 14px;
+      font-weight: 500;
     }
     .close-btn {
       position: absolute;
       top: 10px;
       right: 12px;
       background: none;
-      border: 2px solid #8b6914;
-      border-radius: 4px;
+      border: 2px solid var(--clr-brass);
+      border-radius: 6px;
       padding: 3px 10px;
-      font-family: Georgia, serif;
+      font-family: var(--font-heading);
       cursor: pointer;
-      color: #8b6914;
+      color: var(--clr-brass-dark);
       font-size: 12px;
     }
-    .close-btn:hover { background: #fff8e7; }
+    .close-btn:hover { background: var(--clr-cream-dark); }
 
     /* ── Intro Screen ───────────────────────────────── */
-    #intro-overlay { z-index: 200; }
+    #intro-overlay { z-index: 2000; }
     .intro-card {
       text-align: center;
-      max-width: 520px;
+      max-width: 540px;
     }
     .intro-card h1 {
-      font-size: 28px;
-      color: #8b6914;
+      font-family: var(--font-heading);
+      font-size: 32px;
+      color: var(--clr-forest);
       margin-bottom: 4px;
+      font-weight: 700;
     }
     .intro-card .subtitle {
+      font-family: var(--font-body);
       font-size: 13px;
-      color: #8b6914;
+      color: var(--clr-brass-dark);
       font-style: italic;
       margin-bottom: 18px;
     }
@@ -206,23 +231,24 @@
       line-height: 1.6;
       margin-bottom: 18px;
       text-align: left;
-      background: #fff8e7;
-      border: 1px solid #c4a96a;
-      border-radius: 4px;
+      background: var(--clr-cream-dark);
+      border: 1px solid var(--clr-brass);
+      border-radius: 6px;
       padding: 12px;
     }
-    .intro-card .tutorial-text strong { color: #8b6914; }
+    .intro-card .tutorial-text strong { color: var(--clr-forest); }
     .intro-card .start-btn {
       padding: 10px 32px;
-      background: #8b6914;
-      color: #f4e8d1;
+      background: var(--clr-forest);
+      color: var(--clr-cream);
       border: none;
       border-radius: 6px;
-      font-family: Georgia, serif;
+      font-family: var(--font-heading);
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
     }
-    .intro-card .start-btn:hover { background: #6d5310; }
+    .intro-card .start-btn:hover { background: #1E3515; }
 
     /* ── Settlement Overlay ─────────────────────────── */
     .settlement-art {
@@ -235,17 +261,17 @@
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      color: #8b6914;
+      color: var(--clr-brass-dark);
       text-transform: uppercase;
       letter-spacing: 1px;
-      border: 1px dashed #8b6914;
+      border: 1px dashed var(--clr-brass);
     }
     .settlement-desc {
       font-size: 13px;
       line-height: 1.6;
       margin-bottom: 14px;
       font-style: italic;
-      color: #6d5310;
+      color: var(--clr-brown);
     }
     .settlement-actions {
       display: flex;
@@ -262,14 +288,14 @@
     .event-art {
       width: 100%;
       height: 80px;
-      background: linear-gradient(135deg, #d4c4a0, #c4b490);
+      background: linear-gradient(135deg, #D4C4A0, #C4B490);
       border-radius: 4px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      color: #8b6914;
+      color: var(--clr-brass-dark);
       text-transform: uppercase;
       letter-spacing: 1px;
       border: 1px dashed #8b6914;
@@ -284,36 +310,36 @@
       display: block;
       width: 100%;
       padding: 8px 14px;
-      background: #fff8e7;
-      border: 2px solid #8b6914;
+      background: var(--clr-cream-dark);
+      border: 2px solid var(--clr-brass);
       border-radius: 4px;
-      font-family: Georgia, serif;
+      font-family: var(--font-body);
       font-size: 13px;
-      color: #3d2b1f;
+      color: var(--clr-text);
       cursor: pointer;
       text-align: left;
     }
-    .choice-btn:hover { background: #ffe4a0; }
+    .choice-btn:hover { background: var(--clr-cream-dark); border-color: var(--clr-brass-dark); }
 
     /* ── Cart Overlay ───────────────────────────────── */
     .inv-item {
       display: flex;
       justify-content: space-between;
       padding: 5px 0;
-      border-bottom: 1px solid #d4c4a0;
+      border-bottom: 1px solid var(--clr-brass);
       font-size: 13px;
     }
-    .inv-item .desc { font-size: 11px; color: #8b6914; font-style: italic; }
+    .inv-item .desc { font-size: 11px; color: var(--clr-brass-dark); font-style: italic; }
     .weight-bar {
       height: 14px;
-      background: #d4c4a0;
+      background: var(--clr-brass);
       border-radius: 3px;
       margin: 8px 0 4px;
       overflow: hidden;
     }
     .weight-fill {
       height: 100%;
-      background: #8b6914;
+      background: var(--clr-forest);
       transition: width 0.3s;
       border-radius: 3px;
     }
@@ -327,27 +353,34 @@
       margin-bottom: 10px;
     }
     .crew-modifier {
+      font-family: var(--font-heading);
       font-size: 12px;
-      color: #8b6914;
-      font-style: italic;
+      color: var(--clr-forest);
+      font-weight: 600;
     }
 
     /* ── End Screen ─────────────────────────────────── */
-    #end-overlay { z-index: 200; }
-    .end-card { text-align: center; max-width: 500px; }
-    .end-card h1 { font-size: 24px; color: #8b6914; margin-bottom: 10px; }
+    #end-overlay { z-index: 2000; }
+    .end-card { text-align: center; max-width: 520px; }
+    .end-card h1 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      color: var(--clr-forest);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
     .end-card .end-narrative {
       font-size: 14px;
       line-height: 1.7;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       text-align: left;
     }
     .end-stats {
-      background: #fff8e7;
-      border: 1px solid #c4a96a;
-      border-radius: 4px;
-      padding: 12px;
-      margin-bottom: 16px;
+      background: var(--clr-cream-dark);
+      border: 1px solid var(--clr-brass);
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 18px;
       text-align: left;
     }
     .end-stats .stat-row {
@@ -356,51 +389,64 @@
       padding: 3px 0;
       font-size: 13px;
     }
-    .end-stats .stat-row .label { color: #8b6914; }
+    .end-stats .stat-row .label { color: var(--clr-forest); font-weight: 600; }
     .end-stats .score-row {
-      border-top: 2px solid #8b6914;
+      border-top: 2px solid var(--clr-brass);
       margin-top: 6px;
       padding-top: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #8b6914;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--clr-forest);
+      font-family: var(--font-heading);
     }
     .end-card .restart-btn {
       padding: 10px 32px;
-      background: #8b6914;
-      color: #f4e8d1;
+      background: var(--clr-forest);
+      color: var(--clr-cream);
       border: none;
       border-radius: 6px;
-      font-family: Georgia, serif;
+      font-family: var(--font-heading);
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
     }
-    .end-card .restart-btn:hover { background: #6d5310; }
+    .end-card .restart-btn:hover { background: #1E3515; }
 
     /* ── Dice ───────────────────────────────────────── */
     .dice-result {
       display: inline-block;
       padding: 2px 8px;
-      background: #8b6914;
-      color: #f4e8d1;
+      background: var(--clr-brass);
+      color: var(--clr-cream);
       border-radius: 4px;
-      font-weight: bold;
+      font-weight: 700;
+      font-family: var(--font-heading);
       margin: 0 3px;
+    }
+
+    /* ── Cart marker ─────────────────────────────────── */
+    .cart-marker {
+      background: none !important;
+      border: none !important;
+    }
+    .cart-marker svg {
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.35));
+      transition: transform 0.3s ease;
     }
 
     /* ── Leaflet overrides ──────────────────────────── */
     .leaflet-tile-pane { filter: sepia(0.3) saturate(0.8); }
     .leaflet-control-attribution { display: none; }
     .leaflet-tooltip {
-      background: #f4e8d1;
-      border: 1px solid #8b6914;
-      color: #3d2b1f;
-      font-family: Georgia, serif;
+      background: var(--clr-cream);
+      border: 1px solid var(--clr-brass);
+      color: var(--clr-brown);
+      font-family: var(--font-body);
       font-size: 11px;
       padding: 2px 6px;
       border-radius: 3px;
     }
-    .leaflet-tooltip:before { border-top-color: #8b6914; }
+    .leaflet-tooltip:before { border-top-color: var(--clr-brass); }
   </style>
 </head>
 <body>
@@ -533,20 +579,20 @@ const SEASON_OF = { 6: 'summer', 7: 'summer', 8: 'summer', 9: 'autumn', 10: 'aut
 const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const NODES = [
-  { name: 'Fort Garry',       lat: 49.89,  lon: -97.14,  type: 'hbc',     terrain: 'river_valley', dist: 0,  desc: 'The Red River Settlement. HBC headquarters. Your journey begins.' },
-  { name: 'St. Boniface',     lat: 49.88,  lon: -97.11,   type: 'mission', terrain: 'river_valley', dist: 1,  desc: 'Cathedral and Grey Nuns. Free healing.' },
-  { name: 'St. Norbert',      lat: 49.77,  lon: -97.15,  type: 'metis',   terrain: 'river_valley', dist: 1,  desc: 'Métis parish. Family welcomes you with bannock.' },
-  { name: 'St. François Xavier', lat: 49.92, lon: -97.55, type: 'metis', terrain: 'plains',     dist: 2,  desc: 'Métis community. Well-known ford across the Assiniboine.' },
-  { name: 'Portage la Prairie', lat: 49.97, lon: -98.29, type: 'trading', terrain: 'river_valley', dist: 2, desc: 'Trading post. Full barter. Old HBC fort decaying.' },
-  { name: 'Fort Ellice',      lat: 50.40,  lon: -101.30, type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: "Midpoint resupply. Intersection of the Assiniboine and Qu'Appelle." },
-  { name: "Fort Qu'Appelle",  lat: 50.55,  lon: -103.85, type: 'nwmp',    terrain: 'river_valley', dist: 3,  desc: 'NWMP post. Scrutiny checks mandatory.' },
-  { name: 'Touchwood Hills',  lat: 51.20,  lon: -104.20, type: 'trading', terrain: 'wooded',      dist: 3,  desc: 'Cree trader speaks Michif. Knows the northern route.' },
-  { name: 'Humboldt Mission', lat: 52.20,  lon: -105.12, type: 'mission', terrain: 'plains',       dist: 3,  desc: 'Only reliable healing for a long lonely stretch.' },
-  { name: 'Batoche',          lat: 52.75,  lon: -106.10, type: 'metis',   terrain: 'river_valley', dist: 2,  desc: 'Spiritual centre of the Saskatchewan Métis. Full ceremony.' },
-  { name: "Gabriel's Crossing", lat: 52.70, lon: -105.75, type: 'river', terrain: 'river_valley', dist: 1,  desc: "Gabriel Dumont operates the ferry. South Saskatchewan crossing." },
-  { name: 'Fort Carlton',     lat: 52.80,  lon: -106.50, type: 'hbc',     terrain: 'river_valley', dist: 2,  desc: 'Major HBC depot. Full trade, full repair. Pemmican stores declining.' },
-  { name: 'Fort Pitt',        lat: 53.65,  lon: -109.75, type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: 'Edge of the boreal forest. Small, isolated.' },
-  { name: 'Fort Edmonton',    lat: 53.54,  lon: -113.50, type: 'hbc',     terrain: 'river_valley', dist: 5,  desc: 'Western terminus. Gateway to the Athabasca. The end of the trail.' }
+  { name: 'Fort Garry',       lat: 49.89,  lon: -97.14,  type: 'hbc',     terrain: 'river_valley', dist: 0,  desc: 'The Red River Settlement. HBC headquarters. The palisade walls rise from the mud — your journey begins here, where the Assiniboine meets the Red.' },
+  { name: 'St. Boniface',     lat: 49.88,  lon: -97.11,  type: 'mission', terrain: 'river_valley', dist: 1,  desc: 'Cathedral spires above the river landing. The Grey Nuns offer healing to all travellers. Free pottage and prayers.' },
+  { name: 'St. Norbert',      lat: 49.77,  lon: -97.15,  type: 'metis',   terrain: 'river_valley', dist: 1,  desc: 'A Métis parish straddling the ox-cart trail. Smoke rises from the churchyard. Family welcomes you with bannock and Saskatoon preserve.' },
+  { name: 'St. François Xavier', lat: 49.92, lon: -97.55, type: 'metis', terrain: 'plains',     dist: 2,  desc: 'Long lots stretching back from the river. Well-known ford across the Assiniboine. The Métis here remember the Sayer trial — free trade is their pride.' },
+  { name: 'Portage la Prairie', lat: 49.97, lon: -98.29, type: 'trading', terrain: 'river_valley', dist: 2, desc: 'Trading post at the old lake crossing. Full barter available. The HBC fort is decaying — the wood is grey, the palisade leaning — but trade continues.' },
+  { name: 'Fort Ellice',      lat: 50.40,  lon: -101.30, type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: "Midpoint resupply where the Assiniboine meets the Qu'Appelle. The trail splits here — south to Qu'Appelle, west to the Touchwood Hills." },
+  { name: "Fort Qu'Appelle",  lat: 50.55,  lon: -103.85, type: 'nwmp',    terrain: 'river_valley', dist: 3,  desc: 'NWMP post. The red coats scrutinize every cart and cargo. Papers are checked. Duty collected. You keep your gaze steady.' },
+  { name: 'Touchwood Hills',  lat: 51.20,  lon: -104.20, type: 'trading', terrain: 'wooded',      dist: 3,  desc: 'The last trees for a hundred miles. A Cree trader speaks Michif and knows the northern route. Elm and poplar break the prairie monotony.' },
+  { name: 'Humboldt Mission', lat: 52.20,  lon: -105.12, type: 'mission', terrain: 'plains',       dist: 3,  desc: 'Only reliable healing for a lonely stretch of prairie. The mission garden grows against all odds. A welcome sight.' },
+  { name: 'Batoche',          lat: 52.75,  lon: -106.10, type: 'metis',   terrain: 'river_valley', dist: 2,  desc: 'Spiritual centre of the Saskatchewan Métis. The church bell rings across the river valley. Full ceremony, full communion.' },
+  { name: "Gabriel's Crossing", lat: 52.70, lon: -105.75, type: 'river', terrain: 'river_valley', dist: 1,  desc: "Gabriel Dumont operates the ferry across the South Saskatchewan. His fee is fair. The current is deceptive — do not try to ford it." },
+  { name: 'Fort Carlton',     lat: 52.80,  lon: -106.50, type: 'hbc',     terrain: 'river_valley', dist: 2,  desc: 'Major HBC depot on the North Saskatchewan. Full trade, full repair. The pemmican stores are declining — the Company feels the pressure.' },
+  { name: 'Fort Pitt',        lat: 53.65,  lon: -109.75, type: 'hbc',     terrain: 'river_valley', dist: 4,  desc: 'Edge of the boreal forest. Small, isolated. The last HBC post before Edmonton. Pine and spruce replace poplar.' },
+  { name: 'Fort Edmonton',    lat: 53.54,  lon: -113.50, type: 'hbc',     terrain: 'river_valley', dist: 5,  desc: 'Western terminus. Gateway to the Athabasca. The palisade walls of Fort Edmonton rise from the riverbank. The end of the Carlton Trail.' }
 ];
 
 const ITEMS = [
@@ -911,20 +957,62 @@ function createGame(seed) {
 // ═══════════════════════════════════════════════════════════
 
 // ── Map init (deferred until after intro) ───────────────────────
-let map = null, trailLine = null, markers = null;
+let map = null, trailLine = null, markers = null, playerMarker = null;
+
+// Red River Cart SVG icon
+const cartIcon = L.divIcon({
+  className: 'cart-marker',
+  html: `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="18" fill="#2C4A1E" stroke="#A67C29" stroke-width="2"/>
+    <g transform="translate(8,10)" fill="none" stroke="#F4F1EA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Cart body -->
+      <path d="M4 12 L20 12 L20 4 L12 0 L4 4 Z"/>
+      <!-- Wheellines -->
+      <circle cx="5" cy="14" r="3"/>
+      <circle cx="19" cy="14" r="3"/>
+      <!-- Wheel spokes -->
+      <line x1="5" y1="11" x2="5" y2="17"/>
+      <line x1="2" y1="14" x2="8" y2="14"/>
+      <line x1="19" y1="11" x2="19" y2="17"/>
+      <line x1="16" y1="14" x2="22" y2="14"/>
+      <!-- Shafts -->
+      <line x1="0" y1="8" x2="4" y2="6"/>
+      <line x1="24" y1="8" x2="20" y2="6"/>
+    </g>
+  </svg>`,
+  iconSize: [32, 32],
+  iconAnchor: [16, 16]
+});
 
 function initMap() {
   if (map) return;
   map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
-  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8b6914', weight: 3, opacity: 0.7 }).addTo(map);
+  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8B6914', weight: 3, opacity: 0.6, dashArray: '8,4' }).addTo(map);
   markers = NODES.map((n, i) => {
     const m = L.circleMarker([n.lat, n.lon], {
-      radius: i === 0 ? 9 : 5, fillColor: i === 0 ? '#c0392b' : '#8b6914',
-      color: '#3d2b1f', weight: 2, fillOpacity: 0.9
+      radius: 4, fillColor: '#8B6914', color: '#3D2B1F', weight: 1.5, fillOpacity: 0.7
     }).addTo(map);
     m.bindTooltip(n.name, { permanent: false, direction: 'top' });
     return m;
+  });
+  // Player cart marker
+  playerMarker = L.marker([NODES[0].lat, NODES[0].lon], { icon: cartIcon, zIndexOffset: 1000 }).addTo(map);
+}
+
+function updateMap() {
+  if (!map || !playerMarker) return;
+  const s = game.stateSummary();
+  const node = NODES[s.node];
+  // Pan camera to current node (animated)
+  map.panTo([node.lat, node.lon], { animate: true, duration: 0.5 });
+  // Move cart marker to current node
+  playerMarker.setLatLng([node.lat, node.lon]);
+  // Dim past nodes, highlight current
+  markers.forEach((m, i) => {
+    if (i === s.node) { m.setRadius(6); m.setStyle({ fillColor: '#A67C29', fillOpacity: 1, stroke: '#2C4A1E', weight: 2 }); }
+    else if (i < s.node) { m.setRadius(4); m.setStyle({ fillColor: '#5a4a3a', fillOpacity: 0.4, stroke: '#3D2B1F', weight: 1 }); }
+    else { m.setRadius(4); m.setStyle({ fillColor: '#8B6914', fillOpacity: 0.7, stroke: '#3D2B1F', weight: 1.5 }); }
   });
 }
 
@@ -953,15 +1041,6 @@ function updateStatus() {
   wearEl.className = 'stat-value' + (s.wear >= 3 ? ' wear-high' : '');
 
   document.getElementById('s-crew').textContent = s.crew.charAt(0).toUpperCase() + s.crew.slice(1);
-}
-
-function updateMap() {
-  const s = game.stateSummary();
-  markers.forEach((m, i) => {
-    if (i === s.node) { m.setRadius(9); m.setStyle({ fillColor: '#c0392b' }); }
-    else if (i < s.node) { m.setRadius(5); m.setStyle({ fillColor: '#5a4a3a', fillOpacity: 0.5 }); }
-    else { m.setRadius(5); m.setStyle({ fillColor: '#8b6914', fillOpacity: 0.9 }); }
-  });
 }
 
 function showNarrative() {
