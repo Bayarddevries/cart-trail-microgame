@@ -997,7 +997,7 @@ function presentEvent() {
 function presentSettlement() {
   const s = game.stateSummary();
   const node = game.getCurrentNode();
-  if (!s.pendingSettlement) return;
+  if (!game.getState().pendingSettlement) return;
 
   document.getElementById('settlement-art').textContent = 'TODO: ART — ' + node.name;
   document.getElementById('settlement-name').textContent = node.name;
@@ -1089,8 +1089,7 @@ function showEndScreen() {
 function checkOverlays() {
   if (game.isOver()) { showEndScreen(); return; }
   if (game.hasPendingEvent()) { presentEvent(); return; }
-  const s = game.stateSummary();
-  if (s.pendingSettlement) { presentSettlement(); return; }
+  if (game.getState().pendingSettlement) { presentSettlement(); return; }
 }
 
 // ── Main action handler ─────────────────────────────────────────
