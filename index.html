@@ -8,26 +8,35 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --clr-cream: #F4F1EA;
-      --clr-cream-dark: #E8DCC8;
-      --clr-forest: #2C4A1E;
-      --clr-brass: #A67C29;
-      --clr-brass-dark: #8B6914;
-      --clr-brown: #3D2B1F;
-      --clr-text: #2B1E14;
-      --font-heading: 'Space Grotesk', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
+      --clr-bg: #F0EBE0;
+      --clr-bg-dark: #E0D8C8;
+      --clr-text: #2A2018;
+      --clr-heading: #3B1810;
+      --clr-accent: #6B3A2A;
+      --clr-border: #B8A890;
+      --clr-status-bg: #3B1810;
+      --clr-status-text: #F0EBE0;
+      --clr-status-accent: #C4A882;
+      --clr-overlay-bg: rgba(59, 24, 16, 0.92);
+      --clr-card-bg: #F0EBE0;
+      --clr-btn-bg: #3B1810;
+      --clr-btn-text: #F0EBE0;
+      --clr-btn-hover: #4E2A1E;
+      --clr-narrative-bg: #E8E0D0;
+      --font-heading: 'MedievalSharp', cursive;
+      --font-body: 'IM Fell English', serif;
+      --font-narrative: 'IM Fell English', serif;
     }
 
     body {
       font-family: var(--font-body);
       color: var(--clr-text);
-      background: var(--clr-cream);
+      background: var(--clr-bg);
       overflow: hidden;
       height: 100vh;
     }
@@ -44,11 +53,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 6px 16px;
-      background: var(--clr-brown);
-      color: var(--clr-cream);
+      background: var(--clr-status-bg);
+      color: var(--clr-status-text);
       font-size: 12px;
       flex-shrink: 0;
-      border-bottom: 2px solid var(--clr-brass-dark);
+      border-bottom: 2px solid var(--clr-accent);
       white-space: nowrap;
       overflow: hidden;
     }
@@ -59,7 +68,7 @@
       gap: 4px;
     }
     #status-bar .stat-label {
-      color: var(--clr-brass);
+      color: var(--clr-status-accent);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -70,7 +79,7 @@
       flex: 1;
       text-align: center;
       font-size: 11px;
-      color: var(--clr-brass);
+      color: var(--clr-accent);
       padding: 0 12px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -87,7 +96,7 @@
     #map {
       width: 100%;
       height: 100%;
-      background: #e8d5b5;
+      background: #D8CCB0;
     }
 
     /* ── Bottom Panel ───────────────────────────────── */
@@ -97,23 +106,24 @@
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      border-top: 3px solid var(--clr-brass-dark);
-      background: var(--clr-cream);
+      border-top: 3px solid var(--clr-accent);
+      background: var(--clr-bg);
     }
 
     #narrative {
       flex: 1;
       padding: 10px 18px;
       overflow-y: auto;
-      font-size: 13px;
-      line-height: 1.6;
+      font-family: var(--font-narrative);
+      font-size: 14px;
+      line-height: 1.65;
     }
     .day-header {
       font-family: var(--font-heading);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       margin-bottom: 4px;
       font-weight: 600;
     }
@@ -125,14 +135,14 @@
       display: flex;
       padding: 6px 16px;
       gap: 5px;
-      border-top: 1px solid var(--clr-brass);
-      background: var(--clr-cream-dark);
+      border-top: 1px solid var(--clr-accent);
+      background: var(--clr-bg-dark);
       flex-shrink: 0;
     }
     .ctrl-btn {
       padding: 6px 16px;
-      background: var(--clr-forest);
-      color: var(--clr-cream);
+      background: var(--clr-heading);
+      color: var(--clr-bg);
       border: none;
       border-radius: 6px;
       font-family: var(--font-heading);
@@ -140,7 +150,7 @@
       font-weight: 500;
       cursor: pointer;
     }
-    .ctrl-btn:hover { background: #1E3515; }
+    .ctrl-btn:hover { background: var(--clr-btn-hover); }
     .ctrl-btn:disabled { background: #8a9a7a; cursor: not-allowed; }
     .ctrl-btn .key-hint {
       font-size: 9px;
@@ -153,7 +163,7 @@
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(43, 30, 20, 0.92);
+      background: var(--clr-overlay-bg);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -161,8 +171,8 @@
     .overlay.active { display: flex; }
 
     .overlay-card {
-      background: var(--clr-cream);
-      border: 2px solid var(--clr-brass);
+      background: var(--clr-bg);
+      border: 2px solid var(--clr-accent);
       border-radius: 10px;
       max-width: 580px;
       width: 92%;
@@ -173,14 +183,14 @@
     }
     .overlay-card h2 {
       font-family: var(--font-heading);
-      color: var(--clr-forest);
+      color: var(--clr-heading);
       margin-bottom: 10px;
       font-size: 20px;
       font-weight: 600;
     }
     .overlay-card h3 {
       font-family: var(--font-heading);
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       margin-bottom: 6px;
       font-size: 14px;
       font-weight: 500;
@@ -190,15 +200,15 @@
       top: 10px;
       right: 12px;
       background: none;
-      border: 2px solid var(--clr-brass);
+      border: 2px solid var(--clr-accent);
       border-radius: 6px;
       padding: 3px 10px;
       font-family: var(--font-heading);
       cursor: pointer;
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       font-size: 12px;
     }
-    .close-btn:hover { background: var(--clr-cream-dark); }
+    .close-btn:hover { background: var(--clr-bg-dark); }
 
     /* ── Intro Screen ───────────────────────────────── */
     #intro-overlay { z-index: 2000; }
@@ -209,14 +219,14 @@
     .intro-card h1 {
       font-family: var(--font-heading);
       font-size: 32px;
-      color: var(--clr-forest);
+      color: var(--clr-heading);
       margin-bottom: 4px;
       font-weight: 700;
     }
     .intro-card .subtitle {
       font-family: var(--font-body);
       font-size: 13px;
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       font-style: italic;
       margin-bottom: 18px;
     }
@@ -231,16 +241,16 @@
       line-height: 1.6;
       margin-bottom: 18px;
       text-align: left;
-      background: var(--clr-cream-dark);
-      border: 1px solid var(--clr-brass);
+      background: var(--clr-bg-dark);
+      border: 1px solid var(--clr-accent);
       border-radius: 6px;
       padding: 12px;
     }
-    .intro-card .tutorial-text strong { color: var(--clr-forest); }
+    .intro-card .tutorial-text strong { color: var(--clr-heading); }
     .intro-card .start-btn {
       padding: 10px 32px;
-      background: var(--clr-forest);
-      color: var(--clr-cream);
+      background: var(--clr-heading);
+      color: var(--clr-bg);
       border: none;
       border-radius: 6px;
       font-family: var(--font-heading);
@@ -248,30 +258,30 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .intro-card .start-btn:hover { background: #1E3515; }
+    .intro-card .start-btn:hover { background: var(--clr-btn-hover); }
 
     /* ── Settlement Overlay ─────────────────────────── */
     .settlement-art {
       width: 100%;
       height: 80px;
-      background: linear-gradient(135deg, #d4c4a0, #c4b490);
+      background: linear-gradient(135deg, #D8CCB0, #C8B89A);
       border-radius: 4px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       text-transform: uppercase;
       letter-spacing: 1px;
-      border: 1px dashed var(--clr-brass);
+      border: 1px dashed var(--clr-accent);
     }
     .settlement-desc {
       font-size: 13px;
       line-height: 1.6;
       margin-bottom: 14px;
       font-style: italic;
-      color: var(--clr-brown);
+      color: var(--clr-heading);
     }
     .settlement-actions {
       display: flex;
@@ -295,10 +305,10 @@
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      color: var(--clr-brass-dark);
+      color: var(--clr-accent);
       text-transform: uppercase;
       letter-spacing: 1px;
-      border: 1px dashed #8b6914;
+      border: 1px dashed var(--clr-accent);
     }
     .event-text {
       font-size: 13px;
@@ -310,8 +320,8 @@
       display: block;
       width: 100%;
       padding: 8px 14px;
-      background: var(--clr-cream-dark);
-      border: 2px solid var(--clr-brass);
+      background: var(--clr-bg-dark);
+      border: 2px solid var(--clr-accent);
       border-radius: 4px;
       font-family: var(--font-body);
       font-size: 13px;
@@ -319,32 +329,32 @@
       cursor: pointer;
       text-align: left;
     }
-    .choice-btn:hover { background: var(--clr-cream-dark); border-color: var(--clr-brass-dark); }
+    .choice-btn:hover { background: var(--clr-bg-dark); border-color: var(--clr-accent); }
 
     /* ── Cart Overlay ───────────────────────────────── */
     .inv-item {
       display: flex;
       justify-content: space-between;
       padding: 5px 0;
-      border-bottom: 1px solid var(--clr-brass);
+      border-bottom: 1px solid var(--clr-accent);
       font-size: 13px;
     }
-    .inv-item .desc { font-size: 11px; color: var(--clr-brass-dark); font-style: italic; }
+    .inv-item .desc { font-size: 11px; color: var(--clr-accent); font-style: italic; }
     .weight-bar {
       height: 14px;
-      background: var(--clr-brass);
+      background: var(--clr-accent);
       border-radius: 3px;
       margin: 8px 0 4px;
       overflow: hidden;
     }
     .weight-fill {
       height: 100%;
-      background: var(--clr-forest);
+      background: var(--clr-heading);
       transition: width 0.3s;
       border-radius: 3px;
     }
     .weight-fill.over { background: #c0392b; }
-    .weight-text { font-size: 11px; color: #8b6914; margin-bottom: 8px; }
+    .weight-text { font-size: 11px; color: var(--clr-accent); margin-bottom: 8px; }
 
     /* ── Crew Overlay ───────────────────────────────── */
     .crew-status {
@@ -355,7 +365,7 @@
     .crew-modifier {
       font-family: var(--font-heading);
       font-size: 12px;
-      color: var(--clr-forest);
+      color: var(--clr-heading);
       font-weight: 600;
     }
 
@@ -365,7 +375,7 @@
     .end-card h1 {
       font-family: var(--font-heading);
       font-size: 28px;
-      color: var(--clr-forest);
+      color: var(--clr-heading);
       margin-bottom: 10px;
       font-weight: 700;
     }
@@ -376,8 +386,8 @@
       text-align: left;
     }
     .end-stats {
-      background: var(--clr-cream-dark);
-      border: 1px solid var(--clr-brass);
+      background: var(--clr-bg-dark);
+      border: 1px solid var(--clr-accent);
       border-radius: 6px;
       padding: 14px;
       margin-bottom: 18px;
@@ -389,20 +399,20 @@
       padding: 3px 0;
       font-size: 13px;
     }
-    .end-stats .stat-row .label { color: var(--clr-forest); font-weight: 600; }
+    .end-stats .stat-row .label { color: var(--clr-heading); font-weight: 600; }
     .end-stats .score-row {
-      border-top: 2px solid var(--clr-brass);
+      border-top: 2px solid var(--clr-accent);
       margin-top: 6px;
       padding-top: 8px;
       font-size: 18px;
       font-weight: 700;
-      color: var(--clr-forest);
+      color: var(--clr-heading);
       font-family: var(--font-heading);
     }
     .end-card .restart-btn {
       padding: 10px 32px;
-      background: var(--clr-forest);
-      color: var(--clr-cream);
+      background: var(--clr-heading);
+      color: var(--clr-bg);
       border: none;
       border-radius: 6px;
       font-family: var(--font-heading);
@@ -410,14 +420,14 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .end-card .restart-btn:hover { background: #1E3515; }
+    .end-card .restart-btn:hover { background: var(--clr-btn-hover); }
 
     /* ── Dice ───────────────────────────────────────── */
     .dice-result {
       display: inline-block;
       padding: 2px 8px;
-      background: var(--clr-brass);
-      color: var(--clr-cream);
+      background: var(--clr-accent);
+      color: var(--clr-bg);
       border-radius: 4px;
       font-weight: 700;
       font-family: var(--font-heading);
@@ -438,15 +448,15 @@
     .leaflet-tile-pane { filter: sepia(0.3) saturate(0.8); }
     .leaflet-control-attribution { display: none; }
     .leaflet-tooltip {
-      background: var(--clr-cream);
-      border: 1px solid var(--clr-brass);
-      color: var(--clr-brown);
+      background: var(--clr-bg);
+      border: 1px solid var(--clr-accent);
+      color: var(--clr-heading);
       font-family: var(--font-body);
       font-size: 11px;
       padding: 2px 6px;
       border-radius: 3px;
     }
-    .leaflet-tooltip:before { border-top-color: var(--clr-brass); }
+    .leaflet-tooltip:before { border-top-color: var(--clr-accent); }
   </style>
 </head>
 <body>
@@ -963,8 +973,8 @@ let map = null, trailLine = null, markers = null, playerMarker = null;
 const cartIcon = L.divIcon({
   className: 'cart-marker',
   html: `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="20" cy="20" r="18" fill="#2C4A1E" stroke="#A67C29" stroke-width="2"/>
-    <g transform="translate(8,10)" fill="none" stroke="#F4F1EA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="20" cy="20" r="18" fill="#3B1810" stroke="#6B3A2A" stroke-width="2"/>
+    <g transform="translate(8,10)" fill="none" stroke="#F0EBE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <!-- Cart body -->
       <path d="M4 12 L20 12 L20 4 L12 0 L4 4 Z"/>
       <!-- Wheellines -->
@@ -988,10 +998,10 @@ function initMap() {
   if (map) return;
   map = L.map('map', { zoomControl: false, attributionControl: false }).setView([51.5, -102], 5);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { maxZoom: 8, minZoom: 4 }).addTo(map);
-  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#8B6914', weight: 3, opacity: 0.6, dashArray: '8,4' }).addTo(map);
+  trailLine = L.polyline(NODES.map(n => [n.lat, n.lon]), { color: '#6B3A2A', weight: 3, opacity: 0.6, dashArray: '8,4' }).addTo(map);
   markers = NODES.map((n, i) => {
     const m = L.circleMarker([n.lat, n.lon], {
-      radius: 4, fillColor: '#8B6914', color: '#3D2B1F', weight: 1.5, fillOpacity: 0.7
+      radius: 4, fillColor: '#B8A890', color: '#6B3A2A', weight: 1.5, fillOpacity: 0.7
     }).addTo(map);
     m.bindTooltip(n.name, { permanent: false, direction: 'top' });
     return m;
@@ -1010,9 +1020,9 @@ function updateMap() {
   playerMarker.setLatLng([node.lat, node.lon]);
   // Dim past nodes, highlight current
   markers.forEach((m, i) => {
-    if (i === s.node) { m.setRadius(6); m.setStyle({ fillColor: '#A67C29', fillOpacity: 1, stroke: '#2C4A1E', weight: 2 }); }
-    else if (i < s.node) { m.setRadius(4); m.setStyle({ fillColor: '#5a4a3a', fillOpacity: 0.4, stroke: '#3D2B1F', weight: 1 }); }
-    else { m.setRadius(4); m.setStyle({ fillColor: '#8B6914', fillOpacity: 0.7, stroke: '#3D2B1F', weight: 1.5 }); }
+    if (i === s.node) { m.setRadius(6); m.setStyle({ fillColor: '#6B3A2A', fillOpacity: 1, stroke: '#3B1810', weight: 2 }); }
+    else if (i < s.node) { m.setRadius(4); m.setStyle({ fillColor: '#8a7a6a', fillOpacity: 0.4, stroke: '#B8A890', weight: 1 }); }
+    else { m.setRadius(4); m.setStyle({ fillColor: '#B8A890', fillOpacity: 0.7, stroke: '#6B3A2A', weight: 1.5 }); }
   });
 }
 
