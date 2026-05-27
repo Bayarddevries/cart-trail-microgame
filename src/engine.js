@@ -551,6 +551,7 @@ function createGame(seed) {
       return {
         day: S.day,
         month: MONTHS[S.month],
+        season: S.season,
         location: n.name,
         nodeType: n.type,
         food: S.food,
